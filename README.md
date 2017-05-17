@@ -3,7 +3,7 @@ Tools to help stage managers create line notes for actors.
 
 Originally created by Laurence Ruberl as part of Earlham Theatre Comapany's production of Acid Dolphin Experiment.
 
-##History
+## History
 * Original lineNotes used the pypdf library to work with PDF versions of the Acid Dolphin Script.
 * Upon the realization that PDFs can be extremely difficult to extract text from, lineNotes2 was created.
 * lineNotes2 uses a text file of the script with minimal formatting changes from the original and taking two key files
