@@ -25,7 +25,7 @@ class App extends Component {
 
   setUpNotes() {
     this.ref = base.syncState(
-      `${this.state.uid}/notes`,
+      `personell/${this.state.uid}/notes`,
       {
         context: this,
         state: 'notes'
@@ -43,19 +43,20 @@ authHandler = (authData) => {
   //   this.currentPlay = showName
   // }
 
-  lineNote() {
+  lineNote(form) {
     return{
-      id: `note-${Date.now}`,
-      show: '',
-      pageNum: '',
-      issue: '',
-      fullLine: '',
+      id: `note-${Date.now()}`,
+      show: form.showName.value,
+      actor: form.actorName.value,
+      pageNum: form.pageNum.value,
+      issue: form.issue.value,
+      fullLine: form.fullLine.value,
     }
   }
 
-  addNote = () => {
+  addNote = (form) => {
     const notes = {...this.state.notes}
-    const note = this.lineNote()
+    const note = this.lineNote(form)
     notes[note.id] = note
     this.setState({ notes })
     
@@ -84,12 +85,12 @@ renderThings() {
 
     return(
       <div>
-        <SignOut signOut={this.signOut} />
-        <AddThingButton addThing={this.addThing} />
+        {/*<SignOut signOut={this.signOut} />
+        <AddThingButton addNote={this.addNote} />
         <ThingList
-          things={this.state.things}
+          things={this.state.notes}
           {...actions}
-          />
+          />*/}
       </div>
     )
   }
@@ -97,7 +98,7 @@ renderThings() {
   render() {
     return (
       <div className="App">
-        <LineForm />
+        <LineForm addNote={this.addNote}/>
 
          {/*<Switch>
           <PrivateRoute path="/notes" authed={this.authed()} render={() => (
