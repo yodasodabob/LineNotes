@@ -5,6 +5,7 @@
   "dependencies": {
     "re-base": "^3.0.1",
     "react": "^15.5.4",
+    "react-contenteditable": "^2.0.2",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1"
   },

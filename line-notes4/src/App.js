@@ -4,7 +4,9 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import './App.css';
 import base, { auth } from './base'
 import LineForm from './LineForm'
-// import SignIn from './SignInChoice'
+import SignIn from './SignIn'
+import SignOut from './SignOut'
+import NotesDisplayer from './NotesDisplayer'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
 class App extends Component {
@@ -25,7 +27,7 @@ class App extends Component {
 
   setUpNotes() {
     this.ref = base.syncState(
-      `personell/${this.state.uid}/notes`,
+      `personnel/${this.state.uid}/notes`,
       {
         context: this,
         state: 'notes'
@@ -77,7 +79,7 @@ authHandler = (authData) => {
     auth.signOut()
   }
 
-renderThings() {
+renderNotes() {
     const actions = {
       saveNote: this.saveNote,
       // removeNote: this.removeNote,       //not yet implemented
@@ -85,12 +87,11 @@ renderThings() {
 
     return(
       <div>
-        {/*<SignOut signOut={this.signOut} />
-        <AddThingButton addNote={this.addNote} />
-        <ThingList
-          things={this.state.notes}
+        <SignOut signOut={this.signOut} />
+        <NotesDisplayer
+          notes={this.state.notes}
           {...actions}
-          />*/}
+          />
       </div>
     )
   }
@@ -99,7 +100,7 @@ renderThings() {
     return (
       <div className="App">
         <LineForm addNote={this.addNote}/>
-
+        { this.state.uid ? this.renderNotes() : <SignIn authHandler={this.authHandler}/> }
          {/*<Switch>
           <PrivateRoute path="/notes" authed={this.authed()} render={() => (
             <Main {...actions} notes={this.state.notes} />
