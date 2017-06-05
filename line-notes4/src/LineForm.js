@@ -20,7 +20,8 @@ class LineForm extends Component {
                     <input type="number" name="pageNum" placeholder='Enter page number' required></input>
                     <input type="text" name="issue" placeholder='Enter issue' required></input>
                     <input type="text" name="fullLine" placeholder='Enter full line' required></input>
-                    <button type="submit" className="button success">Add note</button>
+                    <button type="submit" className="button success expanded">Add note</button>
+                    <button className="button alert expanded">Push notes</button>
                 </form>
             </div>
         )

@@ -1,0 +1,73 @@
+.LineNote {
+	width: 650px;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.details {
+  margin: 0;
+  padding: 10px;
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  transition: background 0.2s;
+  -ms-flex: 1 1 0%;
+      flex: 1 1 0%;
+  font-family: 'helvetica neue', sans-serif;
+  font-size: 17.5px;
+  font-weight: 200;
+  /*border-left: 1px solid #D1E2FF;*/
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+	background: #aaaaaa;
+	color: #000000
+}
+
+.lineDetailsGroup {
+	width: 500px;
+	margin: 0;
+	padding: 10px;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex: 1 1 0%;
+	flex: 1 1 0%;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.lineDetails {
+	-ms-flex: 1 1 0%;
+	flex: 1 1 0%;
+	font-family: 'helvetica neue', sans-serif;
+	font-size: 17.5px;
+	font-weight: 200;
+	border-color: #000000;
+	border-width: 1px;
+	border-style: solid;
+	color: #000000;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.actor {
+	float: left;
+	width: 200px;
+}
+
+.pageNum {
+	width: 100px;
+	border-left: none;
+	border-right: none;
+}
+
+.issue {
+	float: right;
+	width: 200px;
+}
+
+.fullLine {
+	float: left;
+	width: 500px;
+}

@@ -1,9 +1,10 @@
 import React from 'react'
 import LineNote from './LineNote'
+import './NotesDisplayer.css'
 
 const NotesDisplayer = (props) => {
     const sortNotes = (a, b) => {
-        return b.match(/\d+/)[0] - a.match(/\d+/)[0]
+        return a.match(/\d+/)[0] - b.match(/\d+/)[0]
   }
 
     return (
