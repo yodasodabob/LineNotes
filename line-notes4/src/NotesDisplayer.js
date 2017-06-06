@@ -8,18 +8,28 @@ const NotesDisplayer = (props) => {
   }
 
     return (
-        <ul className="NoteList">
-            {
-                Object
-                .keys(props.notes)
-                .sort(sortNotes)
-                .map(noteId => <LineNote
-                                    {...props}
-                                    thing={props.notes[noteId]}
-                                    key={noteId}
-                                />)
-      }
-        </ul>
+        <table className="NoteList">
+            <thead>
+                <tr>
+                    <th className="actor">Actor</th>
+                    <th className="page">Page</th>
+                    <th className="issue">Issue</th>
+                    <th className="fullLine">Full line</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    Object
+                    .keys(props.notes)
+                    .sort(sortNotes)
+                    .map(noteId => <LineNote
+                                        {...props}
+                                        thing={props.notes[noteId]}
+                                        key={noteId}
+                                    />)
+                }
+            </tbody>
+        </table>
     )
 }
 

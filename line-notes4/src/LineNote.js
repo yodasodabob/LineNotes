@@ -5,17 +5,14 @@ class LineNote extends Component {
     
     
     render() {
-        // const 
-
+        const thing = this.props.thing
         return(
-            <li className="LineNote column medium-8">
-                <row className="lineDetailsGroup">
-                    <div className='lineDetails actor'>Actor: {this.props.thing.actor}</div>
-                    <div className='lineDetails pageNum'>Page: {this.props.thing.pageNum}</div>
-                    <div className='lineDetails issue'>Issue: {this.props.thing.issue}</div>
-                </row>
-                <div className='lineDetails fullLine'>Full line: {this.props.thing.fullLine}</div>
-            </li>
+            <tr className="LineNote">
+                <td className="actor">{thing.actor}</td>
+                <td className="pageNum">{thing.pageNum}</td>
+                <td className="issue">{thing.issue}</td>
+                <td className="fullLine">{thing.fullLine}</td>
+            </tr>
         )
     }
 }

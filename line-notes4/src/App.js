@@ -47,7 +47,7 @@ authHandler = (authData) => {
 
   lineNote(form) {
     return{
-      id: `note-${Date.now()}`,
+      id: `note-${form.pageNum.value}-${Date.now()}`,
       show: form.showName.value,
       actor: form.actorName.value,
       pageNum: form.pageNum.value,
