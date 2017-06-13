@@ -1,3 +1,9 @@
 body {
   background: #6C2A38;
 }
+
+header {
+  background: #9C1438;
+  color: #ffffff;
+  margin-bottom: .5%;
+}

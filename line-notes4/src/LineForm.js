@@ -14,7 +14,7 @@ class LineForm extends Component {
     render() {
         return(
             <div className="column medium-2">
-                <form id="addNote" onSubmit={this.handleSubmit}>
+                <form className="noteForm" id="addNote" onSubmit={this.handleSubmit}>
                     <input type='text' name='showName' placeholder='Enter name of show' required autoFocus />
                     <input type="text" name="actorName" placeholder='Enter Actor name' required></input>
                     <input type="number" name="pageNum" placeholder='Enter page number' required></input>

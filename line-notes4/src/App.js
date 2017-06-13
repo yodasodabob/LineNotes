@@ -7,15 +7,19 @@ import LineForm from './LineForm'
 import SignIn from './SignIn'
 import SignOut from './SignOut'
 import NotesDisplayer from './NotesDisplayer'
+import OptionsPanel from './OptionsPanel'
+// import Header from './Header'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
 class App extends Component {
   state = {
       uid: null,
       notes: {},
+      userInfo: {},
   }
 
   componentWillMount() {
+    this.getUserFromLocalStorage()
     auth.onAuthStateChanged(
       (user) => {
         if (user) {
@@ -23,6 +27,12 @@ class App extends Component {
         }
       }
     )
+  }
+
+   getUserFromLocalStorage = () => {
+    const uid = localStorage.getItem('uid')
+    if (!uid) return
+    this.setState({ uid })
   }
 
   setUpNotes() {
@@ -38,8 +48,18 @@ class App extends Component {
 authHandler = (authData) => {
     this.setState(
       { uid: authData.user.uid },
-      this.setUpNotes())
+      )
+    this.ref = base.syncState(
+      `personnel/${this.state.uid}/userInfo`,
+      {
+        context: this,
+        state: 'userInfo'
+      }
+    )
+    localStorage.setItem('uid', authData.user.id)
+    this.setUpNotes()
   }
+
 
   // setCurrentPlay = (showName) => {
   //   this.currentPlay = showName
@@ -73,10 +93,12 @@ authHandler = (authData) => {
   signOut = () => {
     const updatedState = {
       uid: null, 
-      notes: {}
+      notes: {},
+      role: null,
     }
     this.setState({ uid: null, notes: {updatedState} })
     auth.signOut()
+    localStorage.removeItem('uid')
   }
 
 renderNotes() {
@@ -85,9 +107,11 @@ renderNotes() {
       // removeNote: this.removeNote,       //not yet implemented
     }
 
+    const user = this.state.userInfo
+
     return(
       <div>
-        <SignOut signOut={this.signOut} />
+        {/*<SignOut signOut={this.signOut} />*/}
         <NotesDisplayer
           notes={this.state.notes}
           {...actions}
@@ -99,8 +123,13 @@ renderNotes() {
   render() {
     return (
       <div className="App">
-        <LineForm addNote={this.addNote}/>
-        { this.state.uid ? this.renderNotes() : <SignIn authHandler={this.authHandler}/> }
+        <header>
+          { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
+        </header>
+        { this.state.uid ? 
+          (<OptionsPanel userType={this.state.userInfo.role} />, this.renderNotes()) :
+          <h1>Please sign in to continue</h1>
+        }
          {/*<Switch>
           <PrivateRoute path="/notes" authed={this.authed()} render={() => (
             <Main {...actions} notes={this.state.notes} />
