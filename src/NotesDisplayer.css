@@ -1,0 +1,39 @@
+/*.NoteList {
+    float: left;
+  position: relative;
+  list-style: none;
+  padding-left: 0;
+  max-width: 700px;
+  margin: 20px auto;
+  background: #ffffff;
+  border-radius: 10px;
+  -webkit-box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+          box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+}*/
+
+table {
+	color: #000000;
+	width: 80%;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+.actor {
+	width: 5%;
+}
+
+.pageNum {
+	width: 5%;
+}
+
+.issue {
+	width: 10%;
+}
+
+.fullLine {
+	width: 40%;
+}
+
+.actions {
+    width: 10%;
+}

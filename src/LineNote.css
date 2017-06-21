@@ -1,0 +1,31 @@
+.LineNote {
+	width: 650px;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+}
+
+/*table {
+	color: #000000;
+	width: 75%;
+}
+
+.actor {
+	width: 10%;
+	align-content: left;
+}
+
+.pageNum {
+	width: 5%;
+	align-content: left;
+}
+
+.issue {
+	width: 20%;
+	align-content: left;
+}
+
+.fullLine {
+	width: 40%;
+	align-content: left;
+}*/
