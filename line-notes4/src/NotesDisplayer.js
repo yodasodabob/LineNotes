@@ -15,6 +15,7 @@ const NotesDisplayer = (props) => {
                     <th className="page">Page</th>
                     <th className="issue">Issue</th>
                     <th className="fullLine">Full line</th>
+                    <th className="actions">Actions</th>
                 </tr>
             </thead>
             <tbody>

@@ -33,3 +33,7 @@ table {
 .fullLine {
 	width: 40%;
 }
+
+.actions {
+    width: 10%;
+}

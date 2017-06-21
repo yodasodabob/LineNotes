@@ -46,10 +46,12 @@ class App extends Component {
     )
   }
 
-  updateUserFromForm(form) {
-    
+  updateUserFromForm(ev) {
+    const newForm = ev.target
     const userInfo = {...this.state.userInfo}
-    userInfo.role = newRole
+    userInfo['firstName'] = newForm.firstName
+    userInfo['lastName'] = newForm.lastName
+    userInfo['role'] = newForm.role
     this.setState({ userInfo })
   }
 
@@ -91,6 +93,12 @@ class App extends Component {
     
   }
 
+  removeNote = (note) => {
+    const notes = {...this.state.notes}
+    notes[note.id] = null
+    this.setState({ notes })
+  }
+
   saveNote = (note) => {
     const notes = {...this.state.notes}
     notes[note.id] = note
@@ -111,7 +119,7 @@ class App extends Component {
 renderNotes() {
     const actions = {
       saveNote: this.saveNote,
-      // removeNote: this.removeNote,       //not yet implemented
+      removeNote: this.removeNote,
     }
 
     const user = this.state.userInfo
@@ -135,7 +143,7 @@ renderNotes() {
           { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
         </header>
         { this.state.uid ? 
-          (this.renderNotes()) :
+          ( this.state.userInfo.role ? this.renderNotes() : <NewUserForm formHandler={this.updateUserFromForm} />) :
           <h1>Please sign in to continue</h1>
         }
          {/*<Switch>

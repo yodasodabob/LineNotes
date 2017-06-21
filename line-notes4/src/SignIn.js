@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { auth, githubProvider } from './base'
+import { auth, githubProvider,googleProvider } from './base'
 import './SignIn.css'
 
 const SignIn = ({ authHandler }) => {
@@ -17,6 +17,12 @@ const SignIn = ({ authHandler }) => {
                 onClick={() => authenticate(githubProvider)}
             >
                 Sign in with GitHub
+            </button>
+            <button
+                className="SignIn button Default"
+                onClick={() => authenticate(googleProvider)}
+            >
+                Sign in with Google
             </button>
         </div>
     )
