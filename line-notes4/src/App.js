@@ -8,6 +8,7 @@ import SignIn from './SignIn'
 import SignOut from './SignOut'
 import NotesDisplayer from './NotesDisplayer'
 import OptionsPanel from './OptionsPanel'
+import NewUserForm from './NewUserForm'
 // import Header from './Header'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
@@ -45,7 +46,14 @@ class App extends Component {
     )
   }
 
-authHandler = (authData) => {
+  updateUserFromForm(form) {
+    
+    const userInfo = {...this.state.userInfo}
+    userInfo.role = newRole
+    this.setState({ userInfo })
+  }
+
+  authHandler = (authData) => {
     this.setState(
       { uid: authData.user.uid },
       )
@@ -59,7 +67,6 @@ authHandler = (authData) => {
     localStorage.setItem('uid', authData.user.id)
     this.setUpNotes()
   }
-
 
   // setCurrentPlay = (showName) => {
   //   this.currentPlay = showName
@@ -112,6 +119,7 @@ renderNotes() {
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
+        <OptionsPanel userType={this.state.userInfo.role} addNote={this.addNote}/>
         <NotesDisplayer
           notes={this.state.notes}
           {...actions}
@@ -127,7 +135,7 @@ renderNotes() {
           { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
         </header>
         { this.state.uid ? 
-          (<OptionsPanel userType={this.state.userInfo.role} />, this.renderNotes()) :
+          (this.renderNotes()) :
           <h1>Please sign in to continue</h1>
         }
          {/*<Switch>
