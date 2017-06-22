@@ -6,6 +6,7 @@ const Actions = ({ note, removeNote }) => {
     return(
         <span className="Actions">
             <button
+                type='button'
                 className="remove button alert"
                 onClick={() => removeNote(note)}
             >
