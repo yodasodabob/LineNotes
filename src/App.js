@@ -16,7 +16,11 @@ class App extends Component {
   state = {
       uid: null,
       notes: {},
-      userInfo: {},
+      userInfo: {
+        firstName: '',
+        lastName: '',
+        role: '',
+      },
       show: null,
   }
 
@@ -51,11 +55,11 @@ class App extends Component {
     debugger
     ev.preventDefault()
     const newForm = ev.target
-    const userInfo = {...this.state.userInfo}
-    userInfo['firstName'] = newForm.firstName
-    userInfo['lastName'] = newForm.lastName
-    userInfo['role'] = newForm.role
-    this.setState({ userInfo })
+    let userInfo = {...this.state.userInfo}
+    userInfo['firstName'] = newForm.firstName.value
+    userInfo['lastName'] = newForm.lastName.value
+    userInfo['role'] = newForm.role.value
+    this.setState({ userInfo },)
   }
 
   authHandler = (authData) => {
@@ -78,15 +82,23 @@ class App extends Component {
   // }
 
   getUserID(actorName) {
-    const personnel = base.fetch('personnel', { 
+    let returnData=null
+    debugger
+    base.fetch('personnel', { 
       context: this,
-    })
-    console.log(personnel)
+      asArray: true,
+    }).then(personnelData => {
+        for (let i = 0; i < personnelData.length; i++){
+          console.log(personnelData[i].userInfo)
+          return(personnelData[i].userInfo.firstName)
+        }
+      })
+
   }
 
   lineNote(form) {
-    let currentShow = form.showName.value
-    this.setState({ currentShow })
+    let show = form.showName.value
+    this.setState({ show })
     return{
       id: `note-${form.pageNum.value}-${Date.now()}`,
       show: form.showName.value,
@@ -156,7 +168,7 @@ renderNotes() {
           { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
         </header>
         { this.state.uid ? 
-          ( this.state.userInfo.role ? this.renderNotes() : <NewUserForm formHandler={this.updateUserFromForm} />) :
+          ( this.state.userInfo.role ? this.renderNotes() : <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />) :
           <h1>Please sign in to continue</h1>
         }
          {/*<Switch>
