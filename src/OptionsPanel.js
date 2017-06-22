@@ -9,7 +9,7 @@ class OptionsPanel extends Component {
         let panelContent = null
         if (this.props.userType === 'ASM'){
             panelContent = <LineForm addNote={this.props.addNote} {...this.props} />
-        } else if (this.props.userType === 'actor') {
+        } else if (this.props.userType === 'Actor') {
             panelContent = <h1>you are an actor</h1>
         } else {
             panelContent = <div><h1>Sign in as a valid user type</h1></div>
