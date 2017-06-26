@@ -14,7 +14,6 @@
 ##END OF BOTH TEXT FILES MUST INCLUDE THE FOLLOWING:
 ##	$NULL
 ##	$NULL
-print
 
 ##Originally developed by Laurence Ruberl on python 3.4 to work with the Acid Dolphin Experiment script
 
