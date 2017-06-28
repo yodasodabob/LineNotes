@@ -33,12 +33,19 @@ class App extends Component {
         }
       }
     )
+    this.getshowFromLocalStorage()
   }
 
    getUserFromLocalStorage = () => {
     const uid = localStorage.getItem('uid')
     if (!uid) return
     this.setState({ uid })
+  }
+
+  getshowFromLocalStorage = () => {
+    const show = localStorage.getItem('show')
+    if (!show) return
+    this.setState({ show })
   }
 
   setUpNotes() {
@@ -52,7 +59,6 @@ class App extends Component {
   }
 
   updateUserFromForm(ev) {
-    debugger
     ev.preventDefault()
     const newForm = ev.target
     let userInfo = {...this.state.userInfo}
@@ -77,42 +83,30 @@ class App extends Component {
     this.setUpNotes()
   }
 
-  // setCurrentPlay = (showName) => {
-  //   this.currentPlay = showName
-  // }
 
-  getUserID(actorName) {
-    let returnData=null
-    debugger
-    base.fetch('personnel', { 
-      context: this,
-      asArray: true,
-    }).then(personnelData => {
-        for (let i = 0; i < personnelData.length; i++){
-          console.log(personnelData[i].userInfo)
-          return(personnelData[i].userInfo.firstName)
+  lineNote(form, personnel) {
+    let userID = null
+    for (let property in personnel){
+      if (personnel.hasOwnProperty(property)) {
+        if (personnel[property].userInfo.firstName === form.actorName.value) {
+          userID = property
         }
-      })
-
-  }
-
-  lineNote(form) {
-    let show = form.showName.value
-    this.setState({ show })
+      }
+    }
     return{
       id: `note-${form.pageNum.value}-${Date.now()}`,
-      show: form.showName.value,
+      show: this.state.show,
       actor: form.actorName.value,
-      actorUserId: this.getUserID(form.actorName.value),
       pageNum: form.pageNum.value,
       issue: form.issue.value,
       fullLine: form.fullLine.value,
+      actorUserId: userID,
     }
   }
 
-  addNote = (form) => {
+  addNote = (form, personnel) => {
     const notes = {...this.state.notes}
-    const note = this.lineNote(form)
+    const note = this.lineNote(form, personnel)
     notes[note.id] = note
     this.setState({ notes })
     
@@ -141,10 +135,18 @@ class App extends Component {
     localStorage.removeItem('uid')
   }
 
+  changeShow = (ev) => {
+    ev.preventDefault()
+    const show = ev.target.showName.value
+    this.setState({ show })
+    localStorage.setItem('show', show)
+    ev.target.reset()
+  }
+
 renderNotes() {
     const actions = {
       saveNote: this.saveNote,
-      removeNote: this.removeNote,
+      removeNote: this.removeNote
     }
 
     // const user = this.state.userInfo
@@ -152,7 +154,7 @@ renderNotes() {
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
-        <OptionsPanel currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
+        <OptionsPanel  changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
         <NotesDisplayer
           notes={this.state.notes}
           {...actions}

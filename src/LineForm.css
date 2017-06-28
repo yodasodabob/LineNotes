@@ -4,3 +4,19 @@
     margin-top: 10px;
     margin-left: 5px;
 }
+
+.changeShow {
+    margin-left: 5px;
+}
+
+.changeShow input {
+    width: 50%;
+    display: inline;
+}
+
+.changeShow button {
+    margin-top: 5%;
+    margin-left: 1%;
+    width: 47%;
+    display: inline;
+}
