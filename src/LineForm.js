@@ -17,9 +17,7 @@ class LineForm extends Component {
     }
 
     pushActor() {
-        if (window.confirm("Are you sure you want to push notes to actors? \nAll notes will be deleted from your userID") === true) {
-            console.log(this)
-            console.log(this.props)
+        if (window.confirm("Are you sure you want to push notes to actors? \nAll notes will be deleted from your userID!") === true) {
             this.props.pushToActor()
         }
     }
@@ -40,6 +38,7 @@ class LineForm extends Component {
                     <input type="number" name="pageNum" placeholder='Enter page number' required></input>
                     <input type="text" name="issue" placeholder='Enter issue' required></input>
                     <input type="text" name="fullLine" placeholder='Enter full line' required></input>
+                    <input type="date" name="rehearsedate" required/>
                     <button type="submit" className="button success expanded">Add note</button>
                 </form>
                 <button className="button alert expanded" onClick={this.pushActor.bind(this)}>Push notes</button>
