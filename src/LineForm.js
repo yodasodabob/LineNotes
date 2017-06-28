@@ -16,6 +16,14 @@ class LineForm extends Component {
         })
     }
 
+    pushActor() {
+        if (window.confirm("Are you sure you want to push notes to actors? \nAll notes will be deleted from your userID") === true) {
+            console.log(this)
+            console.log(this.props)
+            this.props.pushToActor()
+        }
+    }
+
     handleSubmit = (ev) => {
         ev.preventDefault()
         const note = ev.target
@@ -34,7 +42,7 @@ class LineForm extends Component {
                     <input type="text" name="fullLine" placeholder='Enter full line' required></input>
                     <button type="submit" className="button success expanded">Add note</button>
                 </form>
-                <button className="button alert expanded">Push notes</button>
+                <button className="button alert expanded" onClick={this.pushActor.bind(this)}>Push notes</button>
                 <form className="changeShow" id="changeShow" onSubmit={this.props.changeShow}>
                     <input type='text' name='showName' placeholder='Enter name of show' required />
                     <button type='submit' className="button primary changeSubmit">Change Show</button>
@@ -43,4 +51,5 @@ class LineForm extends Component {
         )
     }
 }
+
 export default LineForm

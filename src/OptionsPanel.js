@@ -8,7 +8,7 @@ class OptionsPanel extends Component {
     render() {
         let panelContent = null
         if (this.props.userType === 'ASM'){
-            panelContent = <LineForm changeForm={this.props.changeShow} addNote={this.props.addNote} {...this.props} />
+            panelContent = <LineForm pushToActor={this.props.pushToActor} changeForm={this.props.changeShow} addNote={this.props.addNote} {...this.props} />
         } else if (this.props.userType === 'Actor') {
             panelContent = <h1>You are an actor</h1>
         } else {

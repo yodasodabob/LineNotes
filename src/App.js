@@ -36,6 +36,17 @@ class App extends Component {
     this.getshowFromLocalStorage()
   }
 
+  pushToActor() {
+    const notes = this.state.notes
+    let targetNote = null
+    for (let property in notes) {
+      if (notes.hasOwnProperty(property)) {
+        targetNote = notes[property]
+        base.update(`personnel/${targetNote.actorUserId}/notes/${targetNote.id}`, { data: targetNote })
+      }
+    }
+  }
+
    getUserFromLocalStorage = () => {
     const uid = localStorage.getItem('uid')
     if (!uid) return
@@ -154,7 +165,7 @@ renderNotes() {
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
-        <OptionsPanel  changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
+        <OptionsPanel  pushToActor={this.pushToActor.bind(this)} changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
         <NotesDisplayer
           notes={this.state.notes}
           {...actions}
