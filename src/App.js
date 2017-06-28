@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   pushToActor() {
-    const notes = this.state.notes
+    let notes = {...this.state.notes}
     let targetNote = null
     for (let property in notes) {
       if (notes.hasOwnProperty(property)) {
@@ -45,6 +45,8 @@ class App extends Component {
         base.update(`personnel/${targetNote.actorUserId}/notes/${targetNote.id}`, { data: targetNote })
       }
     }
+    notes = null
+    this.setState({ notes })
   }
 
    getUserFromLocalStorage = () => {
