@@ -78,7 +78,7 @@ class App extends Component {
     userInfo['firstName'] = newForm.firstName.value
     userInfo['lastName'] = newForm.lastName.value
     userInfo['role'] = newForm.role.value
-    this.setState({ userInfo },)
+    this.setState({ userInfo })
   }
 
   authHandler = (authData) => {
@@ -114,6 +114,7 @@ class App extends Component {
       issue: form.issue.value,
       fullLine: form.fullLine.value,
       actorUserId: userID,
+      date: form.rehearseDate.value
     }
   }
 
@@ -126,9 +127,11 @@ class App extends Component {
   }
 
   removeNote = (note) => {
-    const notes = {...this.state.notes}
-    notes[note.id] = null
-    this.setState({ notes })
+    if (window.confirm('Are you sure you want to delete this note?') === true) {
+      const notes = {...this.state.notes}
+      notes[note.id] = null
+      this.setState({ notes })
+    }
   }
 
   saveNote = (note) => {
