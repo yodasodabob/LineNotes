@@ -22,9 +22,16 @@ class App extends Component {
         role: '',
       },
       show: null,
+      notesToDisplay: null,
+      date: null,
   }
 
   componentWillMount() {
+    if (!this.state.date) {
+      const date = new Date()
+      localStorage.setItem('date', date)
+      this.setState({ date })
+    }
     this.getUserFromLocalStorage()
     auth.onAuthStateChanged(
       (user) => {
@@ -55,10 +62,29 @@ class App extends Component {
     this.setState({ uid })
   }
 
+  changeNotesToDisplay(options) {
+    const notes = {...this.state.notes}
+    let notesToDisplay = null
+    for (let property in notes) {
+      if (notes.hasOwnProperty(property)) {
+        if (notes[property][options.param] === options.query) {
+          notesToDisplay[property] = notes[property]
+        }
+      }
+    }
+    this.setState({ notesToDisplay })
+  }
+
   getshowFromLocalStorage = () => {
     const show = localStorage.getItem('show')
     if (!show) return
     this.setState({ show })
+  }
+
+  getDateFromLocalStorage = () => {
+    const date = localStorage.getItem('date')
+    if (!date) return
+    this.setState({ date })
   }
 
   setUpNotes() {
