@@ -8,7 +8,8 @@
     "react": "^15.5.4",
     "react-contenteditable": "^2.0.2",
     "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
