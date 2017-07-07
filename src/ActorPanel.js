@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './ActorPanel.css'
 
 class ActorPanel extends Component {
     state = {
