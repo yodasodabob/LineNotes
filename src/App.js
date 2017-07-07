@@ -27,6 +27,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    this.getDateFromLocalStorage()
     this.getUserFromLocalStorage()
     auth.onAuthStateChanged(
       (user) => {
@@ -36,6 +37,10 @@ class App extends Component {
       }
     )
     this.getshowFromLocalStorage()
+    if (!this.state.notesToDisplay) {
+      const notesToDisplay = this.state.notes
+      this.setState({ notesToDisplay })
+    }
   }
 
   pushToActor() {
@@ -59,7 +64,7 @@ class App extends Component {
 
   changeNotesToDisplay(options) {
     const notes = {...this.state.notes}
-    let notesToDisplay = null
+    let notesToDisplay = {}
     for (let property in notes) {
       if (notes.hasOwnProperty(property)) {
         if (notes[property][options.param] === options.query) {
@@ -135,7 +140,7 @@ class App extends Component {
       issue: form.issue.value,
       fullLine: form.fullLine.value,
       actorUserId: userID,
-      date: form.rehearseDate.value
+      date: this.state.date
     }
   }
 
@@ -180,20 +185,38 @@ class App extends Component {
     ev.target.reset()
   }
 
+  changeDate = (ev) => {
+    ev.preventDefault()
+    const date = ev.target.rehearseDate.value
+    this.setState({ date })
+    localStorage.setItem('date', date)
+    ev.target.reset()
+  }
+
 renderNotes() {
     const actions = {
       saveNote: this.saveNote,
       removeNote: this.removeNote
     }
 
+    
     // const user = this.state.userInfo
 
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
-        <OptionsPanel notes={this.state.notes} pushToActor={this.pushToActor.bind(this)} changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
+        <OptionsPanel 
+          changeNotesToDisplay={this.changeNotesToDisplay.bind(this)}
+          date={this.state.date} 
+          changeDate={this.changeDate} 
+          notes={this.state.notes} 
+          pushToActor={this.pushToActor.bind(this)} 
+          changeShow={this.changeShow} 
+          currentShow={this.state.show} 
+          userType={this.state.userInfo.role} 
+          addNote={this.addNote}/>
         <NotesDisplayer
-          notes={this.state.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
+          notes={this.state.userInfo.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
           {...actions}
           />
       </div>
@@ -201,6 +224,8 @@ renderNotes() {
   }
 
   render() {
+    
+
     return (
       <div className="App">
         <header>
