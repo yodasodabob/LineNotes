@@ -27,11 +27,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    if (!this.state.date) {
-      const date = new Date()
-      localStorage.setItem('date', date)
-      this.setState({ date })
-    }
     this.getUserFromLocalStorage()
     auth.onAuthStateChanged(
       (user) => {
