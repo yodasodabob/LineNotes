@@ -196,9 +196,9 @@ renderNotes() {
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
-        <OptionsPanel  pushToActor={this.pushToActor.bind(this)} changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
+        <OptionsPanel notes={this.state.notes} pushToActor={this.pushToActor.bind(this)} changeShow={this.changeShow} currentShow={this.state.show} userType={this.state.userInfo.role} addNote={this.addNote}/>
         <NotesDisplayer
-          notes={this.state.notes}
+          notes={this.state.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
           {...actions}
           />
       </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import LineForm from './LineForm'
+import ActorPanel from './ActorPanel'
 
 class OptionsPanel extends Component {
 
@@ -10,7 +11,7 @@ class OptionsPanel extends Component {
         if (this.props.userType === 'ASM'){
             panelContent = <LineForm pushToActor={this.props.pushToActor} changeForm={this.props.changeShow} addNote={this.props.addNote} {...this.props} />
         } else if (this.props.userType === 'Actor') {
-            panelContent = <h1>You are an actor</h1>
+            panelContent = <ActorPanel notes={this.props.notes}/>
         } else {
             panelContent = <div><h1>Sign in as a valid user type</h1></div>
         }

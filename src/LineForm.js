@@ -32,13 +32,13 @@ class LineForm extends Component {
     render() {
         return(
             <div className="column medium-2">
-                <h3>{this.props.currentShow}</h3>
+                <h4>{this.props.currentShow}</h4>
                 <form className="noteForm" id="addNote" onSubmit={this.handleSubmit}>
                     <input type="text" name="actorName" placeholder='Enter Actor name' required autoFocus></input>
                     <input type="number" name="pageNum" placeholder='Enter page number' required></input>
                     <input type="text" name="issue" placeholder='Enter issue' required></input>
                     <input type="text" name="fullLine" placeholder='Enter full line' required></input>
-                    <input type="date" name="rehearsedate" required/>
+                    <input type="date" name="rehearseDate" required/>
                     <button type="submit" className="button success expanded">Add note</button>
                 </form>
                 <button className="button alert expanded" onClick={this.pushActor.bind(this)}>Push notes</button>
