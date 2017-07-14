@@ -47,7 +47,7 @@ class LineForm extends Component {
                     <button type='submit' className="button primary changeSubmit">Change Show</button>
                 </form>
                 <form className="changeDate" id="changeDate" onSubmit={this.props.changeDate}>
-                    <input type="date" name="rehearseDate" placeholder="Enter rehearsal date" required/>
+                    <input type="date" name="rehearseDate" id="rehearseDate" required />
                     <button type="submit" className="button primary">Change Date</button>
                 </form>
             </div>

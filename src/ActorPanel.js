@@ -32,7 +32,7 @@ class ActorPanel extends Component {
         let dateArray = this.generateOptions(this.props.notes)
 
         return(
-            <div className="actorPanel">
+            <div className="actorPanel column medium-2">
                 <form className="changeDate" onSubmit={this.changeNotes}>
                     <select name="date" id="date">
                         {
