@@ -7,7 +7,6 @@ class ScriptReader extends Component {
     }
 
     readFile = (ev) => {
-        debugger
         let reader = new FileReader();
         reader.onload = () => {
             let text = reader.result;
@@ -22,7 +21,7 @@ class ScriptReader extends Component {
         return(
             <div>
                 {this.state.lines ? 
-                    <LinesDisplayer notes={this.state.lines} /> : 
+                    <LinesDisplayer lines={this.state.lines} /> : 
                     <input type="file" onChange={this.readFile} accept=".txt, .doc, .rtf, .docx"/>
                 }
             </div>
