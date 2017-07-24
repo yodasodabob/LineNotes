@@ -4,13 +4,7 @@ import ScriptReader from './ScriptReader'
 import './App.css';
 
 class App extends Component {
-
-  openFile = (event) => {
-    console.log(`${this}`)
-  }
-
-  render() {
-    
+  render() {    
 
     return (
       <div className="App">
