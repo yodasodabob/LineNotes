@@ -1,3 +1,6 @@
 .displayedLines{
-    align-content: left;
+    text-align: left;
+    margin-left: 35%;
+    border: 1px solid #000000;
+    width: 30%;
 }
