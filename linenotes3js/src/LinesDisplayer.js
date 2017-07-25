@@ -6,6 +6,7 @@ class LinesDisplayer extends Component {
     state = {
         navStatus: {
             currentLine: null,
+            currentActor: null,
         },
         lines: {...this.props.lines},
     }
@@ -20,7 +21,6 @@ class LinesDisplayer extends Component {
 
     getlines(lineMin, lineMax, list) {
         let returnList = {}
-        console.log(lineMin, lineMax, list)
         for (let i = lineMin; i < lineMax; i++) {
             returnList[i] = list[i]
         }
@@ -30,7 +30,6 @@ class LinesDisplayer extends Component {
     changeLines(numToChange, currentLine) {
         let navStatus = {...this.state.navStatus}
         navStatus.currentLine = currentLine + numToChange
-        console.log({ navStatus })
         this.setState({ navStatus })
     }
 
@@ -44,8 +43,15 @@ class LinesDisplayer extends Component {
         } else {
             targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine + 5, this.state.lines)
         }
+
+        let actions = {
+            currentLine: this.state.navStatus.currentLine,
+            currentActor: this.state.navStatus.currentActor,
+            changeActor: this.changeActor,
+        }
         return (
             <div className='displayedLines'>
+                <button onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
                 <button onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
                 {
                     Object
@@ -55,7 +61,7 @@ class LinesDisplayer extends Component {
                             line={this.state.lines[curLine]}
                             lineNum={curLine}
                             key={curLine} 
-                            currentLine={this.state.navStatus.currentLine}/>
+                            actions={actions}/>
                     )
                 }
             </div>
