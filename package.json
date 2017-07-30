@@ -4,6 +4,7 @@
   "homepage": "https://yodasodabob.github.io/LineNotes/",
   "private": true,
   "dependencies": {
+    "firebase": "^4.2.0",
     "re-base": "^3.0.1",
     "react": "^15.5.4",
     "react-contenteditable": "^2.0.2",
