@@ -11,7 +11,7 @@ const app = firebase.initializeApp({
     messagingSenderId: ""
 })
 
-const db = database(app)
+const db = firebase.database(app)
 
 export const auth = app.auth()
 export const githubProvider = new firebase.auth.GithubAuthProvider()
