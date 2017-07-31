@@ -18,9 +18,15 @@
     margin-top: 5%;
     margin-left: 1%;
     width: 47%;
-    display: inline;
+    display: inline; 
 }
 
-.changeDate {
-    width: 20%;
+ .changeDate input{
+    width: 59%;
+    display: inline;
+    margin-right: 1%;
+} 
+
+.changeDate button{
+    margin-top: 5%;
 }
