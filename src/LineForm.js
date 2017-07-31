@@ -32,8 +32,8 @@ class LineForm extends Component {
     render() {
         return(
             <div className="column medium-2">
-                <h4>{this.props.currentShow}</h4>
-                <h4>{this.props.date}</h4>
+                <h4>{this.props.currentShow ? this.props.currentShow : 'No show set'}</h4>
+                <h4>{this.props.date ? this.props.date : 'No date set'}</h4>
                 <form className="noteForm" id="addNote" onSubmit={this.handleSubmit}>
                     <input type="text" name="actorName" placeholder='Enter Actor name' required autoFocus></input>
                     <input type="number" name="pageNum" placeholder='Enter page number' required></input>
