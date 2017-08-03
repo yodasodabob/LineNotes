@@ -30,8 +30,12 @@ table {
 	width: 10%;
 }
 
+.show {
+    width: 5%;
+}
+
 .fullLine {
-	width: 40%;
+	width: 35%;
 }
 
 .actions {
