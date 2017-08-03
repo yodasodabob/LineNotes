@@ -33,7 +33,7 @@ class ActorPanel extends Component {
         let showArray = this.generateOptions(this.props.notes, "show")
         return(
             <div className="actorPanel column medium-2">
-                <form className="changeDate" onSubmit={(ev) => {this.changeNotes(ev, 'date')}}>
+                <form className="changeDrop" onSubmit={(ev) => {this.changeNotes(ev, 'date')}}>
                     <select name="date" id="date">
                         {
                             Object
@@ -43,7 +43,7 @@ class ActorPanel extends Component {
                     </select>
                     <button type="submit" className="button success">Change date</button>
                 </form>
-                <form className="changeShow" onSubmit={(ev) => {this.changeNotes(ev, 'show')}}>
+                <form className="changeDrop" onSubmit={(ev) => {this.changeNotes(ev, 'show')}}>
                     <select name="show" id="date">
                         {
                             Object
