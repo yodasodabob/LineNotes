@@ -20,6 +20,7 @@ class App extends Component {
         firstName: '',
         lastName: '',
         role: '',
+        isUser: '',
       },
       show: null,
       notesToDisplay: null,
@@ -140,7 +141,7 @@ class App extends Component {
       issue: form.issue.value,
       fullLine: form.fullLine.value,
       actorUserId: userID,
-      date: this.state.date
+      date: this.state.date,
     }
   }
 
@@ -224,7 +225,18 @@ renderNotes() {
   }
 
   render() {
-    
+    let mainContent = null
+    switch (this.state.userInfo.isUser) {
+      case true:
+        mainContent = this.renderNotes()
+        break;
+      case false:
+        mainContent = <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />
+        break;
+      default:
+        mainContent = <h1>Loading, please wait</h1>
+        break;
+    }
 
     return (
       <div className="App">
@@ -232,7 +244,7 @@ renderNotes() {
           { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
         </header>
         { this.state.uid ? 
-          ( this.state.userInfo.role ? this.renderNotes() : <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />) :
+          mainContent :
           <h1>Please sign in to continue</h1>
         }
          {/*<Switch>
