@@ -20,7 +20,7 @@ class App extends Component {
         firstName: '',
         lastName: '',
         role: '',
-        isUser: '',
+        isUser: null,
       },
       show: null,
       notesToDisplay: null,
@@ -57,7 +57,7 @@ class App extends Component {
     this.setState({ notes })
   }
 
-   getUserFromLocalStorage = () => {
+  getUserFromLocalStorage = () => {
     const uid = localStorage.getItem('uid')
     if (!uid) return
     this.setState({ uid })
@@ -99,12 +99,14 @@ class App extends Component {
   }
 
   updateUserFromForm(ev) {
+    debugger
     ev.preventDefault()
     const newForm = ev.target
     let userInfo = {...this.state.userInfo}
     userInfo['firstName'] = newForm.firstName.value
     userInfo['lastName'] = newForm.lastName.value
     userInfo['role'] = newForm.role.value
+    userInfo['isUser'] = true
     this.setState({ userInfo })
   }
 
@@ -226,17 +228,25 @@ renderNotes() {
 
   render() {
     let mainContent = null
-    switch (this.state.userInfo.isUser) {
-      case true:
-        mainContent = this.renderNotes()
-        break;
-      case false:
+    if (this.state.uid && this.state.userInfo.isUser){
+      mainContent = this.renderNotes()
+    } else if (this.state.uid && !this.state.userInfo.isUser) {
         mainContent = <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />
-        break;
-      default:
-        mainContent = <h1>Loading, please wait</h1>
-        break;
+    } else {
+      mainContent = <h1>Loading, please wait</h1>
     }
+
+    // switch (this.state.userInfo.isUser) {
+    //   case true:
+    //     mainContent = this.renderNotes()
+    //     break;
+    //   case false:
+    //     mainContent = <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />
+    //     break;
+    //   default:
+    //     mainContent = <h1>Loading, please wait</h1>
+    //     break;
+    // }
 
     return (
       <div className="App">
