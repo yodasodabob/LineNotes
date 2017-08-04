@@ -236,18 +236,6 @@ renderNotes() {
       mainContent = <h1>Loading, please wait</h1>
     }
 
-    // switch (this.state.userInfo.isUser) {
-    //   case true:
-    //     mainContent = this.renderNotes()
-    //     break;
-    //   case false:
-    //     mainContent = <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />
-    //     break;
-    //   default:
-    //     mainContent = <h1>Loading, please wait</h1>
-    //     break;
-    // }
-
     return (
       <div className="App">
         <header>
