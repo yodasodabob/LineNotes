@@ -1,5 +1,6 @@
 import Rebase from 're-base'
 import firebase from 'firebase/app'
+// eslint-disable-next-line
 import database from 'firebase/database'
 import 'firebase/auth'
 
