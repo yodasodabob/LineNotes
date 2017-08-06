@@ -68,7 +68,7 @@ class App extends Component {
     let notesToDisplay = {}
     for (let property in notes) {
       if (notes.hasOwnProperty(property)) {
-        if (notes[property][options.param] === options.query) {
+        if (notes[property][options.param1] === options.query1 && notes[property][options.param2] === options.query2){
           notesToDisplay[property] = notes[property]
         }
       }
