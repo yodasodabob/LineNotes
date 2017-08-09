@@ -25,6 +25,7 @@ class App extends Component {
       show: null,
       notesToDisplay: null,
       date: null,
+      isUser: null,
   }
 
   componentWillMount() {
@@ -111,6 +112,18 @@ class App extends Component {
   }
 
   authHandler = (authData) => {
+    let isUser = null
+    base.fetch(`personnel/${authData.user.uid}`,{
+      context: this,
+    }).then(data => {
+      if (data.userInfo){
+        isUser = true
+        this.setState({ isUser })
+      } else {
+        isUser = false
+        this.setState({ isUser })
+      }
+    })
     this.setState(
       { uid: authData.user.uid },
       )
@@ -228,9 +241,9 @@ renderNotes() {
 
   render() {
     let mainContent = null
-    if (this.state.uid && this.state.userInfo.isUser){
+    if (this.state.uid && this.state.isUser === true){
       mainContent = this.renderNotes()
-    } else if (this.state.uid && !this.state.userInfo.isUser) {
+    } else if (this.state.uid && this.state.isUser === false) {
         mainContent = <NewUserForm formHandler={this.updateUserFromForm.bind(this)} />
     } else {
       mainContent = <h1>Loading, please wait</h1>
