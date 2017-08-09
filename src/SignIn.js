@@ -8,6 +8,9 @@ const SignIn = ({ authHandler }) => {
         auth
             .signInWithPopup(provider)
             .then(authHandler)
+            .catch(error => {
+                alert(`Sign-in error: ${error.name}: ${error.message}`)
+            })
     }
 
     return(
