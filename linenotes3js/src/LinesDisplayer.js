@@ -7,6 +7,7 @@ class LinesDisplayer extends Component {
         navStatus: {
             currentLine: null,
             currentActor: null,
+            currentScene: null,
         },
         lines: {...this.props.lines},
     }
@@ -37,7 +38,7 @@ class LinesDisplayer extends Component {
         let numLines = Object.keys(this.state.lines).length
         let targLines = null
         if (this.state.navStatus.currentLine < 5){
-            targLines = this.getlines(numLines - (numLines - this.state.navStatus.currentLine), this.state.navStatus.currentLine + 5, this.state.lines)
+            targLines = this.getlines(0, this.state.navStatus.currentLine + 5, this.state.lines)
         } else if (this.state.navStatus.currentLine > numLines - 5) {
             targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine - numLines, this.state.lines)            
         } else {
