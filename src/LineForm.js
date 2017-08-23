@@ -24,9 +24,16 @@ class LineForm extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault()
-        const note = ev.target
-        this.props.addNote(note, this.state.personnel)
-        note.reset()
+        const form = ev.target
+        const noteObj = {
+            id: `note-${form.pageNum.value}-${Date.now()}`,
+            actor: form.actorName.value,
+            pageNum: form.pageNum.value,
+            issue: form.issue.value,
+            fullLine: form.fullLine.value,
+        }
+        this.props.addNote(noteObj, this.state.personnel)
+        form.reset()
     }
 
     render() {

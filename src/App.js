@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-// import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import base, { auth } from './base'
 // import LineForm from './LineForm'
 import SignIn from './SignIn'
-import SignOut from './SignOut'
 import NotesDisplayer from './NotesDisplayer'
 import OptionsPanel from './OptionsPanel'
 import NewUserForm from './NewUserForm'
+import ModuleButtons from './ModuleButtons'
 // import Header from './Header'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
@@ -100,7 +100,6 @@ class App extends Component {
   }
 
   updateUserFromForm(ev) {
-    debugger
     ev.preventDefault()
     const newForm = ev.target
     let userInfo = {...this.state.userInfo}
@@ -139,30 +138,30 @@ class App extends Component {
   }
 
 
-  lineNote(form, personnel) {
+  lineNote(noteObj, personnel) {
     let userID = null
     for (let property in personnel){
       if (personnel.hasOwnProperty(property)) {
-        if (personnel[property].userInfo.firstName === form.actorName.value) {
+        if (personnel[property].userInfo.firstName === noteObj.actor) {
           userID = property
         }
       }
     }
     return{
-      id: `note-${form.pageNum.value}-${Date.now()}`,
+      id: noteObj.id,
       show: this.state.show,
-      actor: form.actorName.value,
-      pageNum: form.pageNum.value,
-      issue: form.issue.value,
-      fullLine: form.fullLine.value,
+      actor: noteObj.actor,
+      pageNum: noteObj.pageNum,
+      issue: noteObj.issue,
+      fullLine: noteObj.fullLine,
       actorUserId: userID,
       date: this.state.date,
     }
   }
 
-  addNote = (form, personnel) => {
+  addNote = (noteObj, personnel) => {
     const notes = {...this.state.notes}
-    const note = this.lineNote(form, personnel)
+    const note = this.lineNote(noteObj, personnel)
     notes[note.id] = note
     this.setState({ notes })
     
@@ -221,20 +220,30 @@ renderNotes() {
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
-        <OptionsPanel 
-          changeNotesToDisplay={this.changeNotesToDisplay.bind(this)}
-          date={this.state.date} 
-          changeDate={this.changeDate} 
-          notes={this.state.notes} 
-          pushToActor={this.pushToActor.bind(this)} 
-          changeShow={this.changeShow} 
-          currentShow={this.state.show} 
-          userType={this.state.userInfo.role} 
-          addNote={this.addNote}/>
-        <NotesDisplayer
-          notes={this.state.userInfo.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
-          {...actions}
-          />
+        <Switch>
+          <Route path='/linenotes4' render={() => 
+            <div className='lineNotes4Wrapper'>
+              <OptionsPanel 
+                changeNotesToDisplay={this.changeNotesToDisplay.bind(this)}
+                date={this.state.date} 
+                changeDate={this.changeDate} 
+                notes={this.state.notes} 
+                pushToActor={this.pushToActor.bind(this)} 
+                changeShow={this.changeShow} 
+                currentShow={this.state.show} 
+                userType={this.state.userInfo.role} 
+                addNote={this.addNote}/>
+              <NotesDisplayer
+                notes={this.state.userInfo.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
+                {...actions}
+              />
+
+            </div>
+          } />
+          <Route render={() => 
+            <p>Welcome to LineNotes! Please choose a module from above to get started!</p>  
+          } />
+        </Switch>
       </div>
     )
   }
@@ -251,8 +260,8 @@ renderNotes() {
 
     return (
       <div className="App">
-        <header>
-          { this.state.uid ? <SignOut signOut={this.signOut} /> : <SignIn authHandler={this.authHandler} />}
+        <header className="button-group">
+          { this.state.uid ? <ModuleButtons role={this.state.userInfo.role} signOut={this.signOut}/> : <SignIn authHandler={this.authHandler} />}
         </header>
         { this.state.uid ? 
           mainContent :
