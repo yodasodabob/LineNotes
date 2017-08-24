@@ -1,0 +1,13 @@
+.changeUserInfoForm {
+    width: 20%;
+    margin-left: .5%;
+    color: #f8f8f8
+}
+
+label {
+    color: #f8f8f8;
+}
+
+.instructions {
+    margin-left: .5%;
+}

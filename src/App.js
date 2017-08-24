@@ -9,6 +9,7 @@ import NotesDisplayer from './NotesDisplayer'
 import OptionsPanel from './OptionsPanel'
 import NewUserForm from './NewUserForm'
 import ModuleButtons from './ModuleButtons'
+import SettingsWindow from './SettingsWindow'
 // import Header from './Header'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
@@ -26,7 +27,7 @@ class App extends Component {
       notesToDisplay: null,
       date: null,
       isUser: null,
-  }
+  } 
 
   componentWillMount() {
     this.getDateFromLocalStorage()
@@ -97,6 +98,13 @@ class App extends Component {
         state: 'notes'
       }
     )
+  }
+
+  changeUserInfo(newUserInfo) {
+    if (window.confirm('Are you sure you want to change your user information?') === true){
+      const userInfo = newUserInfo
+      this.setState({ userInfo })
+    }
   }
 
   updateUserFromForm(ev) {
@@ -214,9 +222,6 @@ renderNotes() {
       removeNote: this.removeNote
     }
 
-    
-    // const user = this.state.userInfo
-
     return(
       <div>
         {/*<SignOut signOut={this.signOut} />*/}
@@ -237,11 +242,13 @@ renderNotes() {
                 notes={this.state.userInfo.role === 'Actor' ? this.state.notesToDisplay : this.state.notes}
                 {...actions}
               />
-
             </div>
           } />
+          <Route path='/settings' render={() => 
+            <SettingsWindow userInfo={this.state.userInfo} changeUserInfo={this.changeUserInfo.bind(this)}/>
+          } />
           <Route render={() => 
-            <p>Welcome to LineNotes! Please choose a module from above to get started!</p>  
+            <p>Welcome to LineNotes! Please choose a working module from above to get started!</p>  
           } />
         </Switch>
       </div>
