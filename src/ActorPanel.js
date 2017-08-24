@@ -34,7 +34,6 @@ class ActorPanel extends Component {
         const sortNotes = (a, b) => {
             let fa = a.split('-').join('')
             let fb = b.split('-').join('')
-            console.log(fa.match(/\d+/)[0] - fb.match(/\d+/)[0])
             return fb.match(/\d+/)[0] - fa.match(/\d+/)[0]
         }
         let dateArray = this.generateOptions(this.props.notes, 'date')
