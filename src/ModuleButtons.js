@@ -7,13 +7,21 @@ const ModuleButtons = (props) => {
     let uniButtons = () => {
         return(
             <span>
+                <Link to={'/'}>
+                    <SignOut signOut={props.signOut} />
+                </Link>
+                <Link to={'/settings'}>
+                    <button className="button primary">
+                        Settings
+                    </button>
+                </Link>
                 <Link to={'/lineNotes4'}>
                     <button className="button primary">
                         Line Notes
                     </button>
                 </Link>
                 <Link to={'/shownotes'}>
-                    <button className="button primary">
+                    <button className="button disabled">
                         Show Notes
                     </button>
                 </Link>
@@ -21,7 +29,6 @@ const ModuleButtons = (props) => {
         )
     }
     let varButtons = null
-    console.log(props.role)
     switch (props.role) {
         case 'Actor':
             varButtons = () => {
@@ -37,7 +44,7 @@ const ModuleButtons = (props) => {
                 return (
                     <span>
                         <Link to={'/lineNotes3js'}>
-                            <button className="button primary">
+                            <button className="button disabled">
                                 LineNotes3js
                             </button>
                         </Link>
@@ -50,12 +57,6 @@ const ModuleButtons = (props) => {
     }
     return( 
         <div className="moduleButtons button-group">
-            <SignOut signOut={props.signOut} />
-            <Link to={'/settings'}>
-                <button className="button primary">
-                    Settings
-                </button>
-            </Link>
             {uniButtons()}
             {varButtons ? varButtons() : null}
         </div>

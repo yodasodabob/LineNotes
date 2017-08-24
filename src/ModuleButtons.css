@@ -6,4 +6,5 @@ Link {
 .moduleButtons {
      margin-top: .65%;
      margin-left: .65%;
+     display: flex;
 }
