@@ -16,12 +16,6 @@ const SignIn = ({ authHandler }) => {
     return(
         <div className="signInChoice">
             <button
-                className="SignIn button default"
-                onClick={() => authenticate(githubProvider)}
-            >
-                Sign in with GitHub
-            </button>
-            <button
                 className="SignIn button Default"
                 onClick={() => authenticate(googleProvider)}
             >
