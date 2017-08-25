@@ -110,12 +110,14 @@ class App extends Component {
   updateUserFromForm(ev) {
     ev.preventDefault()
     const newForm = ev.target
+    const isUser = true
     let userInfo = {...this.state.userInfo}
     userInfo['firstName'] = newForm.firstName.value
     userInfo['lastName'] = newForm.lastName.value
     userInfo['role'] = newForm.role.value
     userInfo['isUser'] = true
     this.setState({ userInfo })
+    this.setState({ isUser })
   }
 
   authHandler = (authData) => {
