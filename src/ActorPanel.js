@@ -3,31 +3,77 @@ import './ActorPanel.css'
 
 class ActorPanel extends Component {
     state = {
-        testArray: [0,1,2,3,4,5]
+        filter: {
+            show: null,
+            date: null,
+        }
     }
 
-    generateOptions = (notes, option) => {
+    componentWillMount() {
+        const filter = {...this.state.filter}
+        filter.show = this.getShowFromLocalStorage()
+        if (!filter.show) {
+            const showOptions = this.generateOptions(this.props.notes, 'show')
+            const showOptionsKeys = Object.keys(showOptions)
+            filter.show = showOptions[showOptionsKeys[0]]
+            localStorage.setItem('show', filter.show)
+        }
+        const dates = this.generateOptions(this.props.notes, 'date', filter.show)
+        const sortNotes = (a, b) => {
+            let fa = a.split('-').join('')
+            let fb = b.split('-').join('')
+            return fb.match(/\d+/)[0] - fa.match(/\d+/)[0]
+        }
+        const dateKeysSort = Object.keys(dates).sort(sortNotes)
+        filter.date = dates[dateKeysSort[0]]
+        this.setState({ filter })
+        this.changeNotes('date', 'show', filter.date, filter.show)
+    }
+
+    getShowFromLocalStorage() {
+        const lsShow = localStorage.getItem('show')
+        if (!lsShow) return false
+        return lsShow
+    }
+
+    generateOptions = (notes, option, showOption) => {
         let optionsObj = {}
         for (let property in notes) {
             if (notes.hasOwnProperty(property)) {
                 if (!optionsObj[notes[property][option]]) {
-                    optionsObj[notes[property][option]]=notes[property][option]
+                    if (option !== 'show') {
+                        if (notes[property]['show'] === showOption) {
+                            optionsObj[notes[property][option]]=notes[property][option]
+                        }
+                    } else {
+                        optionsObj[notes[property][option]]=notes[property][option]
+                    }
                 }
             }
         }
         return (optionsObj)
     }
 
-    changeNotes = (ev, optParam1, optParam2) => {
-        ev.preventDefault()
-        const form = ev.target
+    changeNotes = (optParam1, optParam2, optionalq1, optionalq2) => {
         const options = {
             param1: optParam1,
             param2: optParam2,
-            query1: form[optParam1].value,
-            query2: form[optParam2].value,
+            query1: optionalq1 ? optionalq1 : this.state.filter[optParam1],
+            query2: optionalq2 ? optionalq2 : this.state.filter[optParam2],
         }
         this.props.changeNotesToDisplay(options)
+    }
+
+    changeHandler = (ev) => {
+        ev.preventDefault()
+        const filter = {...this.state.filter}
+        if (filter[ev.target.name] !== ev.target.value) {
+            filter[ev.target.name] = ev.target.value
+        }
+        this.setState({ filter })
+        if (filter.date && filter.show) {
+            this.changeNotes('date', 'show')
+        }
     }
 
     render() {
@@ -36,28 +82,27 @@ class ActorPanel extends Component {
             let fb = b.split('-').join('')
             return fb.match(/\d+/)[0] - fa.match(/\d+/)[0]
         }
-        let dateArray = this.generateOptions(this.props.notes, 'date')
+        let dateArray = this.generateOptions(this.props.notes, 'date', this.state.filter.show)
         let showArray = this.generateOptions(this.props.notes, "show")
         return(
             <div className="actorPanel column medium-2">
-                <form className="changeDrop" onSubmit={(ev) => {this.changeNotes(ev, 'date', 'show')}}>
-                    <select name="date" id="date">
-                        {
-                            Object
-                            .keys(dateArray)
-                            .sort(sortNotes)
-                            .map(dateNum => <option id={dateArray[dateNum]} key={dateNum}>{dateArray[dateNum]}</option>)
-                        }
-                    </select>
-                    <select name="show" id="show">
-                        {
-                            Object
-                            .keys(showArray)
-                            .map(showname => <option id={showArray[showname]} key={showname}>{showArray[showname]}</option>)
-                        }
-                    </select>
-                    <button type="submit" className="button success">Filter Notes</button>
-                </form>
+                <label htmlFor="date">Date to display</label>
+                <select name="date" id="date" onChange={(ev) => this.changeHandler(ev)}>
+                    {
+                        Object
+                        .keys(dateArray)
+                        .sort(sortNotes)
+                        .map(dateNum => <option id={dateArray[dateNum]} key={dateNum}>{dateArray[dateNum]}</option>)
+                    }
+                </select>
+                <label htmlFor="show">Show to display</label>
+                <select name="show" id="show" onChange={(ev) => this.changeHandler(ev)}> 
+                    {
+                        Object
+                        .keys(showArray)
+                        .map(showname => <option id={showArray[showname]} key={showname}>{showArray[showname]}</option>)
+                    }
+                </select>
             </div>
         )
     }
