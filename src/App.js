@@ -196,8 +196,9 @@ class App extends Component {
       uid: null, 
       notes: {},
       role: null,
+      userInfo: {}
     }
-    this.setState({ uid: null, notes: {updatedState} })
+    this.setState({ uid: null, notes: {}, role: null, userInfo: {} })
     auth.signOut()
     localStorage.removeItem('uid')
   }
