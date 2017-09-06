@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter, Route} from 'react-router-dom'
 import 'babel-polyfill'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 ReactDOM.render(
-    <Router>
+    <HashRouter>
         <App />
-    </Router>
+    </HashRouter>
     , document.getElementById('root'));
 registerServiceWorker();
