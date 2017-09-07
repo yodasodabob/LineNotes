@@ -12,14 +12,10 @@ class ActorPanel extends Component {
     componentWillMount() {
         const filter = {...this.state.filter}
         filter.show = this.getShowFromLocalStorage()
-        console.log("filter.show:", filter.show)
         const showOptions = this.generateOptions(this.props.notes, 'show')
-        console.log("showOptions:", showOptions)
         const showOptionsKeys = Object.keys(showOptions)
-        console.log("showOptionsKeys:", showOptionsKeys)
         filter.show = showOptions[showOptionsKeys[0]]
         localStorage.setItem('show', filter.show)
-        console.log("filter.show:", filter.show)
         const dates = this.generateOptions(this.props.notes, 'date', filter.show)
         const sortNotes = (a, b) => {
             let fa = a.split('-').join('')
@@ -27,9 +23,7 @@ class ActorPanel extends Component {
             return fb.match(/\d+/)[0] - fa.match(/\d+/)[0]
         }
         const dateKeysSort = Object.keys(dates).sort(sortNotes)
-        console.log("filter.show:", dateKeysSort)
         filter.date = dates[dateKeysSort[0]]
-        console.log("filter:", filter)
         this.setState({ filter })
         this.changeNotes('date', 'show', filter.date, filter.show)
     }
