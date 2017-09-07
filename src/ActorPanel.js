@@ -12,6 +12,7 @@ class ActorPanel extends Component {
     componentWillMount() {
         const filter = {...this.state.filter}
         filter.show = this.getShowFromLocalStorage()
+        console.log(filter.show)
         if (!filter.show) {
             const showOptions = this.generateOptions(this.props.notes, 'show')
             console.log(showOptions)
