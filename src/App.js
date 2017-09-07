@@ -181,7 +181,13 @@ class App extends Component {
     if (window.confirm('Are you sure you want to delete this note?') === true) {
       const notes = {...this.state.notes}
       notes[note.id] = null
-      this.setState({ notes })
+      if (this.state.notesToDisplay) {
+        const notesToDisplay = {...this.state.notesToDisplay}
+        notesToDisplay[note.id] = null
+        this.setState({ notes, notesToDisplay })
+      } else {
+        this.setState({ notes })
+      }
     }
   }
 
