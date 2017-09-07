@@ -13,14 +13,12 @@ class ActorPanel extends Component {
         const filter = {...this.state.filter}
         filter.show = this.getShowFromLocalStorage()
         console.log("filter.show:", filter.show)
-        if (!filter.show) {
-            const showOptions = this.generateOptions(this.props.notes, 'show')
-            console.log("showOptions:", showOptions)
-            const showOptionsKeys = Object.keys(showOptions)
-            console.log("showOptionsKeys:", showOptionsKeys)
-            filter.show = showOptions[showOptionsKeys[0]]
-            localStorage.setItem('show', filter.show)
-        }
+        const showOptions = this.generateOptions(this.props.notes, 'show')
+        console.log("showOptions:", showOptions)
+        const showOptionsKeys = Object.keys(showOptions)
+        console.log("showOptionsKeys:", showOptionsKeys)
+        filter.show = showOptions[showOptionsKeys[0]]
+        localStorage.setItem('show', filter.show)
         console.log("filter.show:", filter.show)
         const dates = this.generateOptions(this.props.notes, 'date', filter.show)
         const sortNotes = (a, b) => {
