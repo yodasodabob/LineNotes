@@ -192,12 +192,12 @@ class App extends Component {
   }
 
   signOut = () => {
-    const updatedState = {
-      uid: null, 
-      notes: {},
-      role: null,
-      userInfo: {}
-    }
+    // const updatedState = {
+    //   uid: null, 
+    //   notes: {},
+    //   role: null,
+    //   userInfo: {}
+    // }
     this.setState({ uid: null, notes: {}, role: null, userInfo: {} })
     auth.signOut()
     localStorage.removeItem('uid')
