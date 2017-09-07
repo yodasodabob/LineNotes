@@ -37,7 +37,7 @@ class ActorPanel extends Component {
 
     getShowFromLocalStorage() {
         const lsShow = localStorage.getItem('show')
-        if (!lsShow) return false
+        if (!lsShow) return
         return lsShow
     }
 
