@@ -228,7 +228,8 @@ class App extends Component {
 renderNotes() {
     const actions = {
       saveNote: this.saveNote,
-      removeNote: this.removeNote
+      removeNote: this.removeNote,
+      role: this.state.userInfo.role,
     }
 
     return(

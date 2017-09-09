@@ -6,7 +6,7 @@ class LineNote extends Component {
     
     
     render() {
-        const { thing, removeNote } = this.props
+        const { thing, removeNote, role } = this.props
         return(
             <tr className="LineNote">
                 <td className="actor">{thing.actor}</td>
@@ -14,7 +14,7 @@ class LineNote extends Component {
                 <td className="pageNum">{thing.pageNum}</td>
                 <td className="issue">{thing.issue}</td>
                 <td className="fullLine">{thing.fullLine}</td>
-                <td className="actions"><Actions note={thing} removeNote={removeNote} /> </td>
+                <td className="actions"><Actions role={role} note={thing} removeNote={removeNote} /> </td>
             </tr>
         )
     }
