@@ -1,21 +1,13 @@
-import React from 'react'
+import React , { Component} from 'react'
 import './DisplayedLine.css'
 
-const DisplayedLine = (props) => {
-    let actions = props.actions
-    // if(actions.currentLine === props.lineNum) {
-    //     if (props.line.split("")[0]){
-    //         actions.changeActor(props.line)
-    //         actions.changeLine(1, actions.currentLine)
-    //     }
-    // }
+class DisplayedLine extends Component {
     
-    return(
-        <div className={ props.lineNum == actions.currentLine ? "currentLine" : "otherLine"}>
-            {props.lineNum} - {props.line}
-            <br/>
-        </div>
-    )
+    render() {
+        return(
+            <span className="currentLine"></span>
+        )
+    }
 }
 
 export default DisplayedLine

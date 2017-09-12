@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import DisplayedLine from './DisplayedLine'
 import './LinesDisplayer.css'
+import ScriptInterpreter from './ScriptTools'
 
 class LinesDisplayer extends Component {
     state = {
@@ -9,10 +10,11 @@ class LinesDisplayer extends Component {
             currentActor: null,
             currentScene: null,
         },
-        lines: {...this.props.lines},
+        script: new ScriptInterpreter(this.props.lines)
     }
 
     componentWillMount() {
+        
         if(!this.state.navStatus.currentLine){
             let navStatus = {...this.state.navStatus}
             navStatus.currentLine = 0
@@ -32,6 +34,28 @@ class LinesDisplayer extends Component {
         let navStatus = {...this.state.navStatus}
         navStatus.currentLine = currentLine + numToChange
         this.setState({ navStatus })
+    }
+
+    renderLines() {
+        const script = this.state.script
+
+        return(
+            <div className="renderWrapper">
+                <span className="nonPrimaryLine">{script.lines[currentLine-5]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine-4]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine-3]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine-2]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine-1]}</span>
+                <PrimaryLine script={script} currentLine={this.state.navStatus.currentLine} actions={null} />
+                <span className="nonPrimaryLine">{script.lines[currentLine+1]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine+2]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine+3]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine+4]}</span>
+                <span className="nonPrimaryLine">{script.lines[currentLine+5]}</span>
+            </div>
+
+        )
+
     }
 
     render() {
@@ -54,6 +78,7 @@ class LinesDisplayer extends Component {
             <div className='displayedLines'>
                 <button onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
                 <button onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+                {this.renderLines}
                 {
                     Object
                     .keys(targLines)
