@@ -10,6 +10,7 @@ import OptionsPanel from './OptionsPanel'
 import NewUserForm from './NewUserForm'
 import ModuleButtons from './ModuleButtons'
 import SettingsWindow from './SettingsWindow'
+import ScriptReader from './ScriptReader'
 // import Header from './Header'
 // import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
@@ -256,6 +257,9 @@ renderNotes() {
           } />
           <Route path='/settings' render={() => 
             <SettingsWindow userInfo={this.state.userInfo} changeUserInfo={this.changeUserInfo.bind(this)}/>
+          } />
+          <Route path='/linenotes3js' render={() => 
+            <ScriptReader />
           } />
           <Route render={() => 
             <p>Welcome to LineNotes! Please choose a working module from above to get started!</p>  
