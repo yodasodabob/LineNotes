@@ -38,24 +38,25 @@ class LinesDisplayer extends Component {
 
     renderLines() {
         const script = this.state.script
+        const currentLine = this.state.navStatus.currentLine
 
         return(
             <div className="renderWrapper">
-                <span className="nonPrimaryLine">{script.lines[currentLine-5]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine-4]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine-3]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine-2]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine-1]}</span>
-                <PrimaryLine
+                <p className="nonPrimaryLine">{script.lines[currentLine-5]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine-4]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine-3]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine-2]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine-1]}</p>
+                <DisplayedLine
                     script={script} 
                     currentLine={this.state.navStatus.currentLine} 
                     actions={null} 
                 />
-                <span className="nonPrimaryLine">{script.lines[currentLine+1]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine+2]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine+3]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine+4]}</span>
-                <span className="nonPrimaryLine">{script.lines[currentLine+5]}</span>
+                <p className="nonPrimaryLine">{script.lines[currentLine+1]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine+2]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine+3]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine+4]}</p>
+                <p className="nonPrimaryLine">{script.lines[currentLine+5]}</p>
             </div>
 
         )
@@ -63,15 +64,15 @@ class LinesDisplayer extends Component {
     }
 
     render() {
-        let numLines = Object.keys(this.state.lines).length
-        let targLines = null
-        if (this.state.navStatus.currentLine < 5){
-            targLines = this.getlines(0, this.state.navStatus.currentLine + 5, this.state.lines)
-        } else if (this.state.navStatus.currentLine > numLines - 5) {
-            targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine - numLines, this.state.lines)            
-        } else {
-            targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine + 5, this.state.lines)
-        }
+        // let numLines = Object.keys(this.state.script.lines).length
+        // let targLines = null
+        // if (this.state.navStatus.currentLine < 5){
+        //     targLines = this.getlines(0, this.state.navStatus.currentLine + 5, this.state.script.lines)
+        // } else if (this.state.navStatus.currentLine > numLines - 5) {
+        //     targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine - numLines, this.state.script.lines)            
+        // } else {
+        //     targLines = this.getlines(this.state.navStatus.currentLine - 5, this.state.navStatus.currentLine + 5, this.state.script.lines)
+        // }
 
         let actions = {
             currentLine: this.state.navStatus.currentLine,
@@ -80,10 +81,10 @@ class LinesDisplayer extends Component {
         }
         return (
             <div className='displayedLines'>
-                <button onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
-                <button onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
-                {this.renderLines}
-                {
+                <button className="button success" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
+                <button className="button success" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+                {this.renderLines()}
+                {/* {
                     Object
                     .keys(targLines)
                     .map(curLine => 
@@ -93,7 +94,7 @@ class LinesDisplayer extends Component {
                             key={curLine} 
                             actions={actions}/>
                     )
-                }
+                } */}
             </div>
         )
     }
