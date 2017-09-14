@@ -20,11 +20,6 @@ const ModuleButtons = (props) => {
                         Line Notes
                     </button>
                 </Link>
-                <Link to={'/shownotes'}>
-                    <button className="button disabled">
-                        Show Notes
-                    </button>
-                </Link>
             </span>
         )
     }
@@ -39,12 +34,12 @@ const ModuleButtons = (props) => {
                 )
             }
         break;
-        case 'ASM' || 'SM':
+        case 'ASM' || 'SM' || 'PA':
             varButtons = () => {
                 return (
                     <span>
                         <Link to={'/lineNotes3js'}>
-                            <button className="button disabled">
+                            <button className="button primary">
                                 LineNotes3js
                             </button>
                         </Link>
