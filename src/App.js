@@ -259,7 +259,7 @@ renderNotes() {
             <SettingsWindow userInfo={this.state.userInfo} changeUserInfo={this.changeUserInfo.bind(this)}/>
           } />
           <Route path='/linenotes3js' render={() => 
-            <ScriptReader />
+            <ScriptReader changeDate={this.changeDate} addNote={this.addNote}/>
           } />
           <Route render={() => 
             <p>Welcome to LineNotes! Please choose a working module from above to get started!</p>  
