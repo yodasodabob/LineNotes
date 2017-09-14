@@ -40,12 +40,11 @@ class ScriptInterpreter {
         for (let property in this.sceneList) {
             if (this.sceneList.hasOwnProperty(property)) {
                 if (this.sceneList[property].sceneLine < currentLine) {
-                    tracker = property
-                } else {
-                    return (this.sceneList)
+                    tracker = Number(property)
                 }
             }
         }
+        return tracker
     }
 
     // Returns the speaker(s) saying a given line
@@ -69,7 +68,8 @@ class ScriptInterpreter {
         const lineprops = {
             speaker: this.lookForSpeaker(currentLine),
             scene: this.findScene(currentLine),
-            line: this.lines[currentLine]
+            line: currentLine,
+            fullLine: this.lines[currentLine]
         }
         return lineprops
     }
@@ -79,11 +79,11 @@ class ScriptInterpreter {
             throw "NoCastListError"
         }
         let speaker = null
+        let line = currentLine
         while (!speaker) {
-            let line = currentLine
             if (this.lines[line].charAt(0) === "#") {
-                speaker = this.lines[line].split(".")[0].split("#")[0]
-                return speaker
+                speaker = this.lines[line].split(".")[0].split("#")[1]
+                return this.castList[speaker]
             }
             line -= 1
         }
