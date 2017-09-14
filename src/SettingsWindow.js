@@ -1,4 +1,5 @@
 import React from 'react'
+import base from './base'
 import './SettingsWindow.css'
 
 const SettingsWindow = (props) => {
@@ -20,6 +21,28 @@ const SettingsWindow = (props) => {
         props.changeUserInfo(userInfo)
     }
 
+    const makeCastList = (lines) => {
+        const castList = {}
+        for (let line in lines) {
+            if (line != lines.length - 1){
+                let splitLine = lines[line].split(":")
+                castList[splitLine[0]] = splitLine[1]
+            }
+        }
+        base.post("Shows/SKM/castList", { data: castList })
+    }
+
+    const readFile = (ev) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+            let text = reader.result;
+            let lines = text.split('\n');
+            console.log(lines)
+            makeCastList(lines);
+        };
+        reader.readAsText(ev.target.files[0])
+    }
+
     return(
         <div>
             <p className="instructions">Enter new user information into the text boxes to change account information</p>
@@ -36,6 +59,7 @@ const SettingsWindow = (props) => {
                 <input type="text" name='newRole' id='newRole' />
                 <button type='submit' className='button success'>Submit</button>
             </form>
+            {userInfo.role === "ASM" ? <input type="file" onChange={readFile} accept=".txt, .doc, .rtf, .docx"/> : null}
         </div>
     )
 }
