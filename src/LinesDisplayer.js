@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ContentEditable from 'react-contenteditable'
 import DisplayedLine from './DisplayedLine'
 import './LinesDisplayer.css'
 import ScriptInterpreter from './ScriptTools'
@@ -34,6 +35,38 @@ class LinesDisplayer extends Component {
         let navStatus = {...this.state.navStatus}
         navStatus.currentLine = currentLine + numToChange
         this.setState({ navStatus })
+    }
+
+    sceneChangeHandler(ev) {
+        console.log("test")
+        console.log(ev.target.value)
+        let navStatus = {...this.state.navStatus}
+        navStatus.currentLine = Number(ev.target.value)
+        this.setState({ navStatus })
+    }
+
+    checkScriptScenesMade() {
+        if (this.state.script) {
+            if (!this.state.script.sceneList) {
+                this.state.script.generateScenes(false)
+            }
+
+            return(
+                <select name="sceneNav" id="sceneNav" onChange={this.sceneChangeHandler.bind(this)}>
+                {
+                    Object
+                        .keys(this.state.script.sceneList)
+                        .map(scene => 
+                            <option value={this.state.script.sceneList[scene].sceneLine} id={this.state.script.sceneList[scene].sceneLine} key={scene}>{this.state.script.sceneList[scene].sceneName}</option>
+                        )
+                }
+            </select>
+            )
+        }
+    }
+
+    keyPressHandler(ev) {
+        
     }
 
     renderLines() {
@@ -83,6 +116,8 @@ class LinesDisplayer extends Component {
             <div className='displayedLines'>
                 <button className="button success" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
                 <button className="button success" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+                <ContentEditable placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler} />
+                {this.checkScriptScenesMade()}
                 {this.renderLines()}
                 {/* {
                     Object
