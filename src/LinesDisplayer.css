@@ -5,3 +5,16 @@
     width: 70%;
 }
 
+.userInput {
+    width: 20%;
+    background: #ffffff;
+    color: #000000
+}
+
+#sceneNav {
+    width: 20%;
+}
+
+.changeDate {
+    width: 20%;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import base from './base'
 import ContentEditable from 'react-contenteditable'
 import DisplayedLine from './DisplayedLine'
 import './LinesDisplayer.css'
@@ -11,16 +12,28 @@ class LinesDisplayer extends Component {
             currentActor: null,
             currentScene: null,
         },
-        script: new ScriptInterpreter(this.props.lines)
+        script: new ScriptInterpreter(this.props.lines),
+        personnel: {}
     }
 
     componentWillMount() {
-        
         if(!this.state.navStatus.currentLine){
             let navStatus = {...this.state.navStatus}
             navStatus.currentLine = 0
             this.setState({ navStatus })
         }
+        const script = this.state.script
+        if(!this.state.script.castList){
+            base.fetch("Shows/SKM/castList", { context: this, })
+            .then(data => {
+                script.setCastList(data)
+                this.setState({ script })
+            })
+        }
+        this.ref = base.syncState("personnel", {
+            context: this,
+            state: "personnel"
+        })
     }
 
     getlines(lineMin, lineMax, list) {
@@ -52,7 +65,7 @@ class LinesDisplayer extends Component {
             }
 
             return(
-                <select name="sceneNav" id="sceneNav" onChange={this.sceneChangeHandler.bind(this)}>
+            <select name="sceneNav" id="sceneNav" onChange={this.sceneChangeHandler.bind(this)}>
                 {
                     Object
                         .keys(this.state.script.sceneList)
@@ -65,7 +78,34 @@ class LinesDisplayer extends Component {
         }
     }
 
+    generateNote(issue) {
+        let noteObj = {}
+        const lineProps = this.state.script.getLineProps(this.state.navStatus.currentLine)
+        noteObj = {
+            id: `note-${lineProps.line}-${Date.now()}`,
+            actor: lineProps.speaker,
+            pageNum: lineProps.line,
+            issue: issue,
+            fullLine: lineProps.fullLine.split('.')[1],
+        }
+        console.log(noteObj)
+        this.props.addNote(noteObj, {...this.state.personnel})
+    }
+
     keyPressHandler(ev) {
+        switch (ev.key) {
+            case "Enter":
+                if (ev.target.innerHTML === ""){
+                    ev.preventDefault()
+                } else {
+                    this.generateNote(ev.target.innerHTML)
+                    ev.target.innerHTML = null
+                }
+        }
+        if (ev.key === "Enter" && !ev.target.innerHTML) {
+            ev.preventDefault()
+            this.changeLines(1, this.state.navStatus.currentLine)
+        } 
         
     }
 
@@ -116,7 +156,11 @@ class LinesDisplayer extends Component {
             <div className='displayedLines'>
                 <button className="button success" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
                 <button className="button success" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
-                <ContentEditable placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler} />
+                <ContentEditable className="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
+                <form className="changeDate" id="changeDate" onSubmit={this.props.changeDate}>
+                    <input type="date" name="rehearseDate" id="rehearseDate" required />
+                    <button type="submit" className="button primary">Change Date</button>
+                </form>
                 {this.checkScriptScenesMade()}
                 {this.renderLines()}
                 {/* {
