@@ -86,7 +86,7 @@ class LinesDisplayer extends Component {
             actor: lineProps.speaker,
             pageNum: lineProps.line,
             issue: issue,
-            fullLine: lineProps.fullLine.split('.')[1],
+            fullLine: lineProps.fullLine,
         }
         console.log(noteObj)
         this.props.addNote(noteObj, {...this.state.personnel})
