@@ -65,11 +65,17 @@ class ScriptInterpreter {
     /* Looks for the closest speaker and returns it; */
 
     getLineProps(currentLine) {
+        let fullLine = this.lines[currentLine]
+        if (fullLine.charAt(0) === "#") {
+            fullLine = fullLine.split(".")
+            fullLine.shift()
+            fullLine = fullLine.join(".")
+        }
         const lineprops = {
             speaker: this.lookForSpeaker(currentLine),
             scene: this.findScene(currentLine),
             line: currentLine,
-            fullLine: this.lines[currentLine]
+            fullLine: fullLine
         }
         return lineprops
     }
