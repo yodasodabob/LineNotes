@@ -88,24 +88,30 @@ class LinesDisplayer extends Component {
             issue: issue,
             fullLine: lineProps.fullLine,
         }
-        console.log(noteObj)
         this.props.addNote(noteObj, {...this.state.personnel})
     }
 
     keyPressHandler(ev) {
         switch (ev.key) {
             case "Enter":
-                if (ev.target.innerHTML === ""){
-                    ev.preventDefault()
-                } else {
+                ev.preventDefault()
+                if (ev.target.innerHTML !== ""){
                     this.generateNote(ev.target.innerHTML)
                     ev.target.innerHTML = null
                 }
+                this.changeLines(1, this.state.navStatus.currentLine)
+                break;
+            case '`':
+                if (ev.target.innerHTML === "") {
+                    ev.preventDefault()
+                    this.changeLines(0-1, this.state.navStatus.currentLine)
+                }
+                break;
+            default:
+                null
+                break;
         }
-        if (ev.key === "Enter" && !ev.target.innerHTML) {
-            ev.preventDefault()
-            this.changeLines(1, this.state.navStatus.currentLine)
-        } 
+
         
     }
 
@@ -154,14 +160,16 @@ class LinesDisplayer extends Component {
         }
         return (
             <div className='displayedLines'>
-                <button className="button success" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
-                <button className="button success" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
-                <ContentEditable className="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
-                <form className="changeDate" id="changeDate" onSubmit={this.props.changeDate}>
-                    <input type="date" name="rehearseDate" id="rehearseDate" required />
-                    <button type="submit" className="button primary">Change Date</button>
-                </form>
-                {this.checkScriptScenesMade()}
+                <span className="controlPanel">
+                    <button className="button success expanded" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
+                    <button className="button success expanded" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+                    <ContentEditable className="userInput" id="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
+                    <form className="changeRDate" id="changeRDate" onSubmit={this.props.changeDate}>
+                        <input type="date" name="rehearseDate" id="rehearseDate" required />
+                        <button type="submit" className="button primary">Change Date</button>
+                    </form>
+                    {this.checkScriptScenesMade()}
+                </span>
                 {this.renderLines()}
                 {/* {
                     Object
