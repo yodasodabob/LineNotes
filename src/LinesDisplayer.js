@@ -161,8 +161,8 @@ class LinesDisplayer extends Component {
         return (
             <div className='displayedLines'>
                 <span className="controlPanel">
-                    <button className="button success expanded" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
-                    <button className="button success expanded" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+                    <button className="button success expanded lineNav" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
+                    <button className="button success expanded lineNav" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
                     <ContentEditable className="userInput" id="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
                     <form className="changeRDate" id="changeRDate" onSubmit={this.props.changeDate}>
                         <input type="date" name="rehearseDate" id="rehearseDate" required />

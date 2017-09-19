@@ -6,15 +6,28 @@
 }
 
 .userInput {
-    width: 20%;
+    width: 100%;
     background: #ffffff;
-    color: #000000
+    color: #000000;
+    height: 40px;
 }
 
 #sceneNav {
-    width: 20%;
+    /* width: 20%; */
 }
 
-.changeDate {
-    width: 20%;
+.changeRDate {
+    display: inline-flex;
+    /* width: 20%; */
+}
+
+.controlPanel {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.linenav {
+    width:20%;
 }
