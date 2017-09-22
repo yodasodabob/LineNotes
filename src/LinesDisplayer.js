@@ -51,8 +51,6 @@ class LinesDisplayer extends Component {
     }
 
     sceneChangeHandler(ev) {
-        console.log("test")
-        console.log(ev.target.value)
         let navStatus = {...this.state.navStatus}
         navStatus.currentLine = Number(ev.target.value)
         this.setState({ navStatus })
