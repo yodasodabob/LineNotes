@@ -101,7 +101,7 @@ class LinesDisplayer extends Component {
                 }
                 this.changeLines(1, this.state.navStatus.currentLine)
                 break;
-            case '`':
+            case "\\":
                 if (ev.target.innerHTML === "") {
                     ev.preventDefault()
                     this.changeLines(0-1, this.state.navStatus.currentLine)
