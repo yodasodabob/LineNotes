@@ -12,7 +12,7 @@ class ScriptInterpreter {
 
     // Takes script as a list of lines and returns a list of objects with scene title and line number
     // Takes an optional argument as to whether to return the scenes or merely create them and store them in *this*
-    generateScenes(returnBool) {
+    generateScenes(returnBool = true) {
         if (!this.sceneList) {
             let scenes = {}
             for (let i = 0; i < this.lines.length; i++){
