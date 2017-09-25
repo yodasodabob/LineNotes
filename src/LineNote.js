@@ -11,7 +11,7 @@ class LineNote extends Component {
             <tr className="LineNote">
                 <td className="actor">{thing.actor}</td>
                 <td className="show">{thing.show}</td>
-                <td className="pageNum">{thing.pageNum}</td>
+                <td className="lineNum">{thing.pageNum}</td>
                 <td className="issue">{thing.issue}</td>
                 <td className="fullLine">{thing.fullLine}</td>
                 <td className="actions"><Actions role={role} note={thing} removeNote={removeNote} /> </td>

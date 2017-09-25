@@ -13,7 +13,7 @@ const NotesDisplayer = (props) => {
                 <tr>
                     <th className="actor">Actor</th>
                     <th className="show">Show</th>
-                    <th className="page">Page</th>
+                    <th className="lineNum">Line Number</th>
                     <th className="issue">Issue</th>
                     <th className="fullLine">Full line</th>
                     <th className="actions">Actions</th>
