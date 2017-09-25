@@ -167,6 +167,7 @@ class App extends Component {
       fullLine: noteObj.fullLine,
       actorUserId: userID,
       date: this.state.date,
+      dateEntered:Date(Date.now())
     }
   }
 
@@ -205,7 +206,7 @@ class App extends Component {
     //   role: null,
     //   userInfo: {}
     // }
-    this.setState({ uid: null, notes: {}, role: null, userInfo: {} })
+    this.setState({ uid: null, notes: {}, role: null, userInfo: {}, show: null, isUser: null, notesToDisplay: {} })
     auth.signOut()
     localStorage.removeItem('uid')
   }
@@ -218,15 +219,25 @@ class App extends Component {
     ev.target.reset()
   }
 
+  getCurrentInfo(query){
+    return(this.state[query])
+  }
+
+  
+
   changeDate = (ev) => {
-    ev.preventDefault()
+    if (ev.preventDefault){
+      ev.preventDefault()
+    }
     const date = ev.target.rehearseDate.value
     this.setState({ date })
     localStorage.setItem('date', date)
-    ev.target.reset()
+    if (ev.target.reset){
+      ev.target.reset()
+    }
   }
 
-renderNotes() {
+  renderNotes() {
     const actions = {
       saveNote: this.saveNote,
       removeNote: this.removeNote,
@@ -259,7 +270,7 @@ renderNotes() {
             <SettingsWindow userInfo={this.state.userInfo} changeUserInfo={this.changeUserInfo.bind(this)}/>
           } />
           <Route path='/linenotes3js' render={() => 
-            <ScriptReader changeDate={this.changeDate} addNote={this.addNote}/>
+            <ScriptReader changeDate={this.changeDate} addNote={this.addNote} getCurrentInfo={this.getCurrentInfo.bind(this)} />
           } />
           <Route render={() => 
             <p>Welcome to LineNotes! Please choose a working module from above to get started!</p>  
