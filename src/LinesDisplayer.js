@@ -89,17 +89,48 @@ class LinesDisplayer extends Component {
         this.props.addNote(noteObj, {...this.state.personnel})
     }
 
-    keyPressHandler(ev) {
+    keyPressHandler(ev, isCL = false) {
         switch (ev.key) {
             case "Enter":
                 ev.preventDefault()
+                if (isCL === true){
+                    switch (ev.target.innerHTML.charAt(0)) {
+                        case "#" :
+                            const today = new Date()
+                            this.props.changeDate({ 
+                                target: {
+                                    rehearseDate: {
+                                        value: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+                                    }
+                                }
+                            })
+                            ev.target.innerHTML = ""
+                            return
+                        case "$":
+                            const scenes = this.state.script.generateScenes(true)
+                            const newLine = parseInt(ev.target.innerHTML.split("$")[1])
+                            const sceneKeys = Object.keys(scenes)
+                            if (scenes[sceneKeys[newLine]]){
+                                this.setState({ navStatus:{ currentLine: scenes[sceneKeys[newLine]].sceneLine}})
+                            } else {
+                                alert("Invalid scene")
+                            }
+                            // let navStatus ={ currentLine: scenes[ev.target.innerHTML.split("#")[1]] }
+                            ev.target.innerHTML = ""
+                            return
+                            break;
+                        default:
+                            null
+                    }
+                }
                 if (ev.target.innerHTML !== ""){
                     this.generateNote(ev.target.innerHTML)
-                    ev.target.innerHTML = null
-                }
+                    ev.target.innerHTML = ""
+                    }
                 this.changeLines(1, this.state.navStatus.currentLine)
                 break;
-            case "\\" || '`':
+            case "\`":
+            case "\\":
                 if (ev.target.innerHTML === "") {
                     ev.preventDefault()
                     this.changeLines(0-1, this.state.navStatus.currentLine)
@@ -111,6 +142,30 @@ class LinesDisplayer extends Component {
         }
 
         
+    }
+
+    renderButtonPanel() {
+        return(
+        <span className="controlPanel">
+            <button className="button success expanded lineNav" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
+            <button className="button success expanded lineNav" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
+            <ContentEditable className="userInput" id="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
+            <form className="changeRDate" id="changeRDate" onSubmit={this.props.changeDate}>
+                <input type="date" name="rehearseDate" id="rehearseDate" required />
+                <button type="submit" className="button primary">Change Date</button>
+            </form>
+            {this.checkScriptScenesMade()}
+        </span>
+        )
+    }
+
+    renderCommandLine(){
+        return(
+            <span className="controlPanel">
+                <ContentEditable className="userInput" id="userInput" autoFocus onKeyPress={(ev) => this.keyPressHandler(ev, true)} />
+                <p>Current date: {this.props.getCurrentInfo("date")}    Current scene: {this.state.script.lines[this.state.script.findScene(this.state.navStatus.currentLine)]}</p> 
+            </span>
+        )
     }
 
     renderLines() {
@@ -158,16 +213,7 @@ class LinesDisplayer extends Component {
         }
         return (
             <div className='displayedLines'>
-                <span className="controlPanel">
-                    <button className="button success expanded lineNav" onClick={() => {this.changeLines((0 - 1), this.state.navStatus.currentLine)}}>Move one line up</button>
-                    <button className="button success expanded lineNav" onClick={() => {this.changeLines(1, this.state.navStatus.currentLine)}}>Move one line down</button>
-                    <ContentEditable className="userInput" id="userInput" placeholder="Issue" autoFocus onKeyPress={this.keyPressHandler.bind(this)} />
-                    <form className="changeRDate" id="changeRDate" onSubmit={this.props.changeDate}>
-                        <input type="date" name="rehearseDate" id="rehearseDate" required />
-                        <button type="submit" className="button primary">Change Date</button>
-                    </form>
-                    {this.checkScriptScenesMade()}
-                </span>
+                {this.renderCommandLine()}
                 {this.renderLines()}
                 {/* {
                     Object
