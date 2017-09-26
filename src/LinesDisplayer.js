@@ -89,6 +89,16 @@ class LinesDisplayer extends Component {
         this.props.addNote(noteObj, {...this.state.personnel})
     }
 
+    commandHandler(cmd) {
+        switch (cmd) {
+            case "exit":
+                this.props.removeLines()
+                break;
+            default:
+                alert("Invalid command")
+        }
+    }
+
     keyPressHandler(ev, isCL = false) {
         switch (ev.key) {
             case "Enter":
@@ -97,10 +107,18 @@ class LinesDisplayer extends Component {
                     switch (ev.target.innerHTML.charAt(0)) {
                         case "#" :
                             const today = new Date()
+                            let day = today.getDate().toString()
+                            let month = (today.getMonth()+1).toString()
+                            if (day.length === 1) {
+                                day = "0" + day
+                            }
+                            if (month.length === 1) {
+                                month = "0" + month
+                            }
                             this.props.changeDate({ 
                                 target: {
                                     rehearseDate: {
-                                        value: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+                                        value: today.getFullYear()+'-'+(month)+'-'+today.getDate()
                                     }
                                 }
                             })
@@ -118,9 +136,10 @@ class LinesDisplayer extends Component {
                             // let navStatus ={ currentLine: scenes[ev.target.innerHTML.split("#")[1]] }
                             ev.target.innerHTML = ""
                             return
-                            break;
-                        default:
-                            null
+                        case "@":
+                            this.commandHandler(ev.target.innerHTML.split("@")[1])
+                            ev.target.innerHTML = ""
+                            return
                     }
                 }
                 if (ev.target.innerHTML !== ""){
@@ -129,7 +148,7 @@ class LinesDisplayer extends Component {
                     }
                 this.changeLines(1, this.state.navStatus.currentLine)
                 break;
-            case "\`":
+            case "`":
             case "\\":
                 if (ev.target.innerHTML === "") {
                     ev.preventDefault()
@@ -212,20 +231,28 @@ class LinesDisplayer extends Component {
             changeActor: this.changeActor,
         }
         return (
-            <div className='displayedLines'>
-                {this.renderCommandLine()}
-                {this.renderLines()}
-                {/* {
-                    Object
-                    .keys(targLines)
-                    .map(curLine => 
-                        <DisplayedLine
-                            line={this.state.lines[curLine]}
-                            lineNum={curLine}
-                            key={curLine} 
-                            actions={actions}/>
-                    )
-                } */}
+            <div className="displayedLinesWrapper">
+                
+                <p>Commands:
+                    @: Miscellaneous commands (exit)
+                    #: change date (blank for current date)
+                    $: change scene (whole number scene)
+                </p>
+                <div className='displayedLines'>
+                    {this.renderCommandLine()}
+                    {this.renderLines()}
+                    {/* {
+                        Object
+                        .keys(targLines)
+                        .map(curLine => 
+                            <DisplayedLine
+                                line={this.state.lines[curLine]}
+                                lineNum={curLine}
+                                key={curLine} 
+                                actions={actions}/>
+                        )
+                    } */}
+                </div>
             </div>
         )
     }
