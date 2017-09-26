@@ -11,7 +11,6 @@ class ActorPanel extends Component {
 
     componentWillMount() {
         const filter = {...this.state.filter}
-        filter.show = this.getShowFromLocalStorage()
         const showOptions = this.generateOptions(this.props.notes, 'show')
         const showOptionsKeys = Object.keys(showOptions)
         filter.show = showOptions[showOptionsKeys[0]]
@@ -28,11 +27,6 @@ class ActorPanel extends Component {
         this.changeNotes('date', 'show', filter.date, filter.show)
     }
 
-    getShowFromLocalStorage() {
-        const lsShow = localStorage.getItem('show')
-        if (!lsShow) return
-        return lsShow
-    }
 
     generateOptions = (notes, option, showOption) => {
         let optionsObj = {}
