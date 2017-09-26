@@ -39,7 +39,7 @@ class ScriptInterpreter {
         let tracker = 0
         for (let property in this.sceneList) {
             if (this.sceneList.hasOwnProperty(property)) {
-                if (this.sceneList[property].sceneLine < currentLine) {
+                if (this.sceneList[property].sceneLine <= currentLine) {
                     tracker = Number(property)
                 }
             }
