@@ -64,7 +64,7 @@ class ActorPanel extends Component {
         }
         this.setState({ filter })
         if (filter.date && filter.show) {
-            this.changeNotes('date', 'show')
+            this.changeNotes('date', 'show', filter.date, filter.show)
         }
     }
 
