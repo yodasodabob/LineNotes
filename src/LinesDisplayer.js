@@ -118,7 +118,7 @@ class LinesDisplayer extends Component {
                             this.props.changeDate({ 
                                 target: {
                                     rehearseDate: {
-                                        value: today.getFullYear()+'-'+(month)+'-'+today.getDate()
+                                        value: today.getFullYear()+'-'+(month)+'-'+day
                                     }
                                 }
                             })
