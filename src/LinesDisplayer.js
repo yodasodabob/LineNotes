@@ -182,7 +182,7 @@ class LinesDisplayer extends Component {
         return(
             <span className="controlPanel">
                 <ContentEditable className="userInput" id="userInput" autoFocus onKeyPress={(ev) => this.keyPressHandler(ev, true)} />
-                <p>Current date: {this.props.getCurrentInfo("date")}    Current scene: {this.state.script.lines[this.state.script.findScene(this.state.navStatus.currentLine)]}</p> 
+                <p>Current line: {this.state.navStatus.currentLine} Current date: {this.props.getCurrentInfo("date")}    Current scene: {this.state.script.lines[this.state.script.findScene(this.state.navStatus.currentLine)]}</p> 
             </span>
         )
     }
