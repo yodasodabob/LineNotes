@@ -17,7 +17,7 @@ import ScriptReader from './ScriptReader'
 class App extends Component {
   state = {
       uid: null,
-      notes: {},
+      notes: {}, 
       userInfo: {
         firstName: '',
         lastName: '',
@@ -30,7 +30,8 @@ class App extends Component {
       isUser: null,
   } 
 
-  componentWillMount() {
+  componentWillMount() { // General
+    // Checks for storeed date, user, and show, then sets notes to display equal to all the notes if blank
     this.getDateFromLocalStorage()
     this.getUserFromLocalStorage()
     auth.onAuthStateChanged(
@@ -47,7 +48,8 @@ class App extends Component {
     }
   }
 
-  pushToActor() {
+  pushToActor() { // SM, ASM
+    // Pushes notes to the relevant actors and then deletes them from the SM's 
     let notes = {...this.state.notes}
     let targetNote = null
     for (let property in notes) {
@@ -60,13 +62,22 @@ class App extends Component {
     this.setState({ notes })
   }
 
-  getUserFromLocalStorage = () => {
+  getUserFromLocalStorage = () => { // General
+    // Retrieves the last logged in user from localstorage; returns blank if none
     const uid = localStorage.getItem('uid')
     if (!uid) return
     this.setState({ uid })
   }
 
-  changeNotesToDisplay(options) {
+  changeNotesToDisplay(options) { // Actors
+    /*changes the notes that should be currently displayed
+      options should contain the following
+        param1: the first thing you want to change (for example show)
+        param2: the second thing you want to change (for example date)
+        query1: the specific thing you want to display from param1(for example "She kills monsters")
+        query2: the specific thing you want to display from param2 (for example "2017-09-30")
+    */
+
     const notes = {...this.state.notes}
     let notesToDisplay = {}
     for (let property in notes) {
@@ -79,7 +90,8 @@ class App extends Component {
     this.setState({ notesToDisplay })
   }
 
-  getshowFromLocalStorage = () => {
+  getshowFromLocalStorage = () => { // General
+    // Retrieves the last saved show from localstorage
     const show = localStorage.getItem('show')
     if (!show) return
     this.setState({ show })
