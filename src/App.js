@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import base, { auth } from './base'
-// import LineForm from './LineForm'
 import SignIn from './SignIn'
 import NotesDisplayer from './NotesDisplayer'
 import OptionsPanel from './OptionsPanel'
@@ -11,8 +10,6 @@ import NewUserForm from './NewUserForm'
 import ModuleButtons from './ModuleButtons'
 import SettingsWindow from './SettingsWindow'
 import ScriptReader from './ScriptReader'
-// import Header from './Header'
-// import { PublicRoute, PrivateRoute } from './RouteHelpers'
 
 class App extends Component {
   state = {
@@ -212,12 +209,7 @@ class App extends Component {
   }
 
   signOut = () => {
-    // const updatedState = {
-    //   uid: null, 
-    //   notes: {},
-    //   role: null,
-    //   userInfo: {}
-    // }
+    
     this.setState({ uid: null, notes: {}, role: null, userInfo: {}, show: null, isUser: null, notesToDisplay: {} })
     auth.signOut()
     localStorage.removeItem('uid')
@@ -311,17 +303,6 @@ class App extends Component {
           mainContent :
           <h1>Please sign in to continue</h1>
         }
-         {/*<Switch>
-          <PrivateRoute path="/notes" authed={this.authed()} render={() => (
-            <Main {...actions} notes={this.state.notes} />
-          )} />
-          <PublicRoute path="/sign-in" authed={this.authed()} render={() => (
-            <SignIn authHandler={this.authHandler} />
-          )} />
-          <Route render={() => <Redirect to="/notes" />} />
-        </Switch>
-        <SignIn />
-        <LineForm />*/}
       </div>
     );
   }
