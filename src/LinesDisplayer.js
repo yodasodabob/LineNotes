@@ -85,6 +85,7 @@ class LinesDisplayer extends Component {
             pageNum: lineProps.line,
             issue: issue,
             fullLine: lineProps.fullLine,
+            scene:lineProps.scene
         }
         this.props.addNote(noteObj, {...this.state.personnel})
     }

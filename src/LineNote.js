@@ -10,7 +10,7 @@ class LineNote extends Component {
         return(
             <tr className="LineNote">
                 <td className="actor">{thing.actor}</td>
-                <td className="show">{thing.show}</td>
+                <td className="show">{thing.scene}</td>
                 <td className="lineNum">{thing.pageNum}</td>
                 <td className="issue">{thing.issue}</td>
                 <td className="fullLine">{thing.fullLine}</td>

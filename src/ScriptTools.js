@@ -31,7 +31,7 @@ class ScriptInterpreter {
         }
     }
     
-    findScene(currentLine) {
+    findScene(currentLine, title=false) {
         if (!this.sceneList) {
             console.log("No scenes found; generating")
             this.generateScenes(false)
@@ -44,7 +44,7 @@ class ScriptInterpreter {
                 }
             }
         }
-        return tracker
+        return title ? this.sceneList[tracker].sceneName : tracker
     }
 
     // Returns the speaker(s) saying a given line
@@ -62,6 +62,7 @@ class ScriptInterpreter {
         }
     }
 
+
     /* Looks for the closest speaker and returns it; */
 
     getLineProps(currentLine) {
@@ -73,7 +74,7 @@ class ScriptInterpreter {
         }
         const lineprops = {
             speaker: this.lookForSpeaker(currentLine),
-            scene: this.findScene(currentLine),
+            scene: this.findScene(currentLine, true),
             line: currentLine,
             fullLine: fullLine
         }

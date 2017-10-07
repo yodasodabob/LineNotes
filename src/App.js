@@ -176,6 +176,7 @@ class App extends Component {
       fullLine: noteObj.fullLine,
       actorUserId: userID,
       date: this.state.date,
+      scene: noteObj.scene,
       dateEntered:Date(Date.now())
     }
   }
