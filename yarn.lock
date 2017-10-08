@@ -8,6 +8,10 @@
   dependencies:
     numeric "^1.2.6"
 
+"@firebase/webchannel-wrapper@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.1.tgz#2c4dbc15edd1de4f656d543a6f512ded7978ef72"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -3862,9 +3866,10 @@ firebase@^4.0.0:
     xmlhttprequest "^1.8.0"
 
 firebase@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.4.0.tgz#cffa34964c38ae24157ec930dbe147816fd8e3f4"
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.5.0.tgz#e0973a9803b74c4c9d73d19f874712e6e9d16ba7"
   dependencies:
+    "@firebase/webchannel-wrapper" "^0.2.1"
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
     jsonwebtoken "^7.3.0"
@@ -7468,8 +7473,8 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 re-base@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.3.tgz#f73a9337c57423e06f779cfdec6e7bcff3354279"
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.4.tgz#d0e70e5429fb3af8eeba2e72a80badadccf98d1c"
   dependencies:
     firebase "^4.0.0"
 
