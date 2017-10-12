@@ -7472,9 +7472,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-base@^3.0.3:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.4.tgz#d0e70e5429fb3af8eeba2e72a80badadccf98d1c"
+re-base@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.5.tgz#a6daf8d55c8ebf589cff0bfa595255b941233aef"
   dependencies:
     firebase "^4.0.0"
 
