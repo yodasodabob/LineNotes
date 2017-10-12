@@ -25,6 +25,7 @@ class App extends Component {
       notesToDisplay: null,
       date: null,
       isUser: null,
+      dateCheck: false,
   } 
 
   componentWillMount() { // General
@@ -42,6 +43,30 @@ class App extends Component {
     if (!this.state.notesToDisplay) {
       const notesToDisplay = this.state.notes
       this.setState({ notesToDisplay })
+    }
+  }
+
+  dateCheck() {
+    if (this.state.dateCheck === false && this.state.date ){
+      const today = new Date()
+      let day = today.getDate().toString()
+      let month = (today.getMonth()+1).toString()
+      if (day.length === 1) {
+          day = "0" + day
+      }
+      if (month.length === 1) {
+          month = "0" + month
+      }
+      const date_now = today.getFullYear()+'-'+(month)+'-'+day
+      console.log(this.state.date, date_now)
+      if (this.state.date !== date_now){
+        if (window.confirm("Today's date and the stored date do not match.  Do you want to set the date to today or keep it as it is?") == true){
+          const date = date_now
+          this.setState( { date, dateCheck: true } )
+        } else {
+          this.setState({ dateCheck: true })
+        }
+      }
     }
   }
 
@@ -67,8 +92,9 @@ class App extends Component {
   }
 
   changeNotesToDisplay(options) { // Actors
-    /*changes the notes that should be currently displayed
-      options should contain the following
+    /*
+      changes the notes that should be currently displayed
+      options should be an object containing the following
         param1: the first thing you want to change (for example show)
         param2: the second thing you want to change (for example date)
         query1: the specific thing you want to display from param1(for example "She kills monsters")
@@ -231,6 +257,7 @@ class App extends Component {
   
 
   changeDate = (ev) => {
+    // perfCheck = this.state.date ? false : true
     if (ev.preventDefault){
       ev.preventDefault()
     }
