@@ -209,8 +209,19 @@ class App extends Component {
 
   addNote = (noteObj, personnel) => {
     const notes = {...this.state.notes}
+    // Check for duplicate notes and merge
     const note = this.lineNote(noteObj, personnel)
-    notes[note.id] = note
+    let noMatch = true
+    for (let item in notes) {
+      if (notes[item].pageNum === note.pageNum){
+        notes[item].issue = notes[item].issue + ', ' + note.issue
+        noMatch = false
+        break
+      }
+    }
+    if (noMatch === true){
+      notes[note.id] = note
+    }
     this.setState({ notes })
     
   }
