@@ -36,7 +36,7 @@ class ScriptReader extends Component {
         return(
             <div>
                 {this.state.lines ? 
-                    <LinesDisplayer removeLines={this.removeLines.bind(this)} getCurrentInfo={this.props.getCurrentInfo} changeDate={this.props.changeDate} addNote={this.props.addNote} lines={this.state.lines} /> : 
+                    <LinesDisplayer fixDates={this.props.fixDates} removeLines={this.removeLines.bind(this)} getCurrentInfo={this.props.getCurrentInfo} changeDate={this.props.changeDate} addNote={this.props.addNote} lines={this.state.lines} /> : 
                     <input type="file" onChange={this.readFile} accept=".txt, .doc, .rtf, .docx"/>
                 }
             </div>

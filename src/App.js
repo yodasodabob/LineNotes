@@ -269,6 +269,19 @@ class App extends Component {
     }
   }
 
+  fixDates() {
+    const notes = {...this.state.notes}
+    let numFix = 0
+    for(let note in notes) {
+      if (notes[note].date != this.state.date){
+        numFix += 1
+        notes[note].date = this.state.date
+      }
+    }
+    alert(`Number of notes fixed: ${numFix}`)
+    this.setState({ notes })
+  }
+
   renderNotes() {
     const actions = {
       saveNote: this.saveNote,
@@ -302,7 +315,7 @@ class App extends Component {
             <SettingsWindow userInfo={this.state.userInfo} changeUserInfo={this.changeUserInfo.bind(this)}/>
           } />
           <Route path='/linenotes3js' render={() => 
-            <ScriptReader changeDate={this.changeDate} addNote={this.addNote} getCurrentInfo={this.getCurrentInfo.bind(this)} />
+            <ScriptReader fixDates={this.fixDates.bind(this)} changeDate={this.changeDate} addNote={this.addNote} getCurrentInfo={this.getCurrentInfo.bind(this)} />
           } />
           <Route render={() => 
             <p>Welcome to LineNotes! Please choose a working module from above to get started!</p>  

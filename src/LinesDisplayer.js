@@ -95,6 +95,9 @@ class LinesDisplayer extends Component {
             case "exit":
                 this.props.removeLines()
                 break;
+            case "fix dates":
+                this.props.fixDates()
+                break;
             default:
                 alert("Invalid command")
         }
