@@ -9,7 +9,7 @@ class ScriptInterpreter():
         self._castlist = {}
 
     def set_script(self, script):
-
+        """Takes a filename, formatted to the linenotes3js specifications, and creates a list containing every line in the file"""
         with open(script, "r") as newfile:
             self._lines = newfile.readlines()
             self._scenelist = [i for i in self._lines if i[0] == "$"]
