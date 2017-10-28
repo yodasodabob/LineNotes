@@ -1,7 +1,7 @@
 // Script interpreter class with methods to interpret a script that's formatted to the specifications of linenotes3
 
 class ScriptInterpreter {
-    // Takes a list containing the lines of the script, and an object containing 
+    // Takes a list containing the lines of the script
     constructor(script) {
         this.lines = script
     }
