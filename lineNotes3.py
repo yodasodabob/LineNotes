@@ -1,7 +1,6 @@
 
 
 class ScriptInterpreter():
-    #Takes a file as a parameter
     def __init__(self):
         self._lines = []
         self._scenelist = []
@@ -15,12 +14,16 @@ class ScriptInterpreter():
             self._scenelist = [i for i in self._lines if i[0] == "$"]
 
     def set_cast_list(self, castlist, reset=False):
-        """Takes a filename with lines formatted as "ACTOR ROLE" and writes the contents into a dictionary"""
-        if reset: self._castlist = {}
+        """Takes a filename with lines formatted as "ACTOR:ROLE" and writes the contents into a dictionary"""
+        if reset: 
+            self._castlist = {}
         with open(castlist, "r") as castfile:
             for line in castfile.readlines():
-                splitline = line.split()
+                splitline = line.split(":")
                 self._castlist[splitline[1]] = splitline[0]
+        
+
+    
 
         
 
