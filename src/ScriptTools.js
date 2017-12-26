@@ -95,6 +95,29 @@ class ScriptInterpreter {
             line -= 1
         }
     }
+
+    unpack(packedScript) {
+        this.lines = packedScript.lines
+        this.castList = packedScript.castList
+        if (packedScript.sceneList) {this.sceneList = packedScript.sceneList}
+    } 
+
+    pack() {
+        return StoredScript(this)
+    }
+}
+
+class StoredScript {
+    // takes an interpreted script and stores it in a space-concerned fashion  suitable to firebase
+    constructor(interpreted_script) {
+        this.lines = interpreted_script.lines
+        this.castList = interpreted_script.castList
+        if (interpreted_script.sceneList) {this.sceneList = interpreted_script.sceneList}
+    }
+    unpack() {
+        unpacked = ScriptInterpreter()
+        return unpacked.unpack(this)
+    }
 }
 
 export default ScriptInterpreter
